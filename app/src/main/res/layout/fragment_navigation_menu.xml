@@ -1,0 +1,110 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:id="@+id/linear_layout_reservation"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linear_layout_news"
+        >
+        <ImageView
+            android:id="@+id/image_view_reservation"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/text_view_reservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation"
+            android:textSize="10sp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_news"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linear_layout_reservation"
+        app:layout_constraintEnd_toStartOf="@+id/linear_layout_buy">
+        <ImageView
+            android:id="@+id/image_view_news"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/text_view_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/news"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_buy"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linear_layout_news"
+        app:layout_constraintEnd_toStartOf="@+id/linear_layout_profile">
+        <ImageView
+            android:id="@+id/image_view_buy"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/text_view_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/buy"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_profile"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linear_layout_buy"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <ImageView
+            android:id="@+id/image_view_profile"
+            android:layout_height="20dp"
+            android:layout_width="20dp"
+            android:layout_gravity="center"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/text_view_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile"
+            android:textSize="10sp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
