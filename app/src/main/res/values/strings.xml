@@ -8,5 +8,6 @@
     <string name="reservation">Reservation</string>
     <string name="profile">Profile</string>
     <string name="news">News</string>
-    <string name="buy">Buy</string>
+    <string name="buy">Menu</string>
+    <string name="scan">Scan</string>
 </resources>
