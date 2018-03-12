@@ -4,7 +4,9 @@
 
     <item
         android:id="@+id/login_button"
-        android:title="@string/login_button_label"
         android:icon="@drawable/profile_not_active"
-        app:showAsAction="ifRoom" />
+        android:title="@string/login_button_label"
+        app:showAsAction="always|withText"
+        android:actionLayout="@layout/action_button_sign_in">
+    </item>
 </menu>
