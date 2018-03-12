@@ -21,7 +21,7 @@ import com.example.indormitory.models.News;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends BaseActivity {
     private RecyclerView mNewsRecyclerView;
     private NewsAdapter mAdapter;
     private List<News> mNewsList = new ArrayList<>();
@@ -99,28 +99,4 @@ public class NewsActivity extends AppCompatActivity {
         }
     }
 
-    private void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_option_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.login_button:
-                startLoginActivity();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

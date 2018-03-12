@@ -7,6 +7,8 @@
     <TextView
         android:paddingTop="10dp"
         android:text="pyssy"
+        android:textSize="16dp"
+
         android:id="@+id/fragment_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,11 +21,11 @@
         android:layout_marginEnd="8dp"
         android:id="@+id/menu_logo"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/fragment_item"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/salat"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription" />
 
@@ -33,14 +35,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:textAlignment="center"
-        android:text="Title"
-        android:background="#80FFFFFF"
+        android:text="Olive"
+        android:background="#90FFFFFF"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textColor="#000000"
+        android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/menu_logo"
@@ -55,28 +57,33 @@
         android:text="$ 123"
         android:textStyle="bold"
         android:maxLines="3"
-        android:textColor="#2fd859"
-        android:textSize="20sp"
+        android:textColor="#00380e"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menu_logo"/>
-    
-    <ImageView
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:src="@drawable/shopping_cart"
-        app:layout_constraintTop_toBottomOf="@id/menu_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
 
-        />
-    
+        <Button
+            app:layout_constraintTop_toBottomOf="@id/menu_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/button_buy"
+            android:text="add"
+            android:textAlignment="textStart"
+            android:paddingStart="10dp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorMenuActive"
+            android:textSize="20sp"/>
+
+
     <View
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:id="@+id/hr_line"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="2dp"
         android:background="@color/colorMenuActive"
         app:layout_constraintTop_toBottomOf="@id/price"
         android:layout_marginTop="8dp"

@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Jeckk on 12.03.2018.
  */
 
-public class ScanActivity extends AppCompatActivity {
+public class ScanActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Jeckk on 12.03.2018.
  */
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends BaseActivity {
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
     private String[] items = {"Алкоголь", "Булочки", "М'ясні страви", "Більше алкоголю"};

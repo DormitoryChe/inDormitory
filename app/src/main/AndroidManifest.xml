@@ -30,5 +30,6 @@
         <activity
             android:name=".ScanActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".BaseActivity" />
     </application>
 </manifest>

@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Jeckk on 12.03.2018.
  */
 
-public class ReservationActivity extends AppCompatActivity {
+public class ReservationActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
