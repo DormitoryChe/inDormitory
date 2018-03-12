@@ -10,22 +10,23 @@
     <ImageView
         android:id="@+id/news_logo"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
-        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription"
-        app:layout_constraintTop_toBottomOf="@id/news_title"/>
+        app:layout_constraintTop_toBottomOf="@id/news_title"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/news_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Title"
+        android:textStyle="bold"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -35,10 +36,50 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:text="Description"
+        android:maxLines="3"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/news_logo"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:inputType="date"
+        android:text="11.12.11"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@id/news_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="#80ffffff"
+        />
+
+    <ImageView
+        android:id="@+id/more_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:src="@drawable/arrow_down"
+        app:layout_constraintTop_toBottomOf="@id/news_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        />
+
+    <View
+        android:id="@+id/hr_line"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/colorMenuActive"
+        app:layout_constraintTop_toBottomOf="@id/more_button"
+        android:layout_marginTop="8dp"
+        />
+
 </android.support.constraint.ConstraintLayout>
