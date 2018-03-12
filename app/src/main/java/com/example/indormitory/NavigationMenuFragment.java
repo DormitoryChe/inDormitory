@@ -15,11 +15,11 @@ public class NavigationMenuFragment extends Fragment {
     private ImageView reservationImageView;
     private ImageView newsImageView;
     private ImageView buyImageView;
-    private ImageView profileImageView;
+    private ImageView scanImageView;
     private TextView reservationTextView;
     private TextView newsTextView;
     private TextView buyTextView;
-    private TextView profileTextView;
+    private TextView scanTextView;
 
     @Nullable
     @Override
@@ -29,17 +29,17 @@ public class NavigationMenuFragment extends Fragment {
         LinearLayout reservationLayout = view.findViewById(R.id.linear_layout_reservation);
         LinearLayout newsLayout = view.findViewById(R.id.linear_layout_news);
         LinearLayout buyLayout = view.findViewById(R.id.linear_layout_buy);
-        LinearLayout profileLayout = view.findViewById(R.id.linear_layout_profile);
+        LinearLayout scanLayout = view.findViewById(R.id.linear_layout_scan);
 
         reservationImageView = view.findViewById(R.id.image_view_reservation);
         newsImageView = view.findViewById(R.id.image_view_news);
         buyImageView = view.findViewById(R.id.image_view_buy);
-        profileImageView = view.findViewById(R.id.image_view_profile);
+        scanImageView = view.findViewById(R.id.image_view_scan);
 
         reservationTextView = view.findViewById(R.id.text_view_reservation);
         newsTextView = view.findViewById(R.id.text_view_news);
         buyTextView = view.findViewById(R.id.text_view_buy);
-        profileTextView = view.findViewById(R.id.text_view_profile);
+        scanTextView = view.findViewById(R.id.text_view_scan);
 
         /*if (getActivity() instanceof HomeActivity)
             configureNavigationMenuForLearn();
@@ -74,10 +74,10 @@ public class NavigationMenuFragment extends Fragment {
             }
         });
 
-        profileLayout.setOnClickListener(new View.OnClickListener() {
+        scanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                configureNavigationMenuForProfile();
+                configureNavigationMenuForScan();
                 //startActivity(new Intent(getContext(), ArticlesActivity.class));
             }
         });
@@ -92,8 +92,8 @@ public class NavigationMenuFragment extends Fragment {
         newsTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         buyImageView.setImageResource(R.drawable.food_not_active);
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
-        profileImageView.setImageResource(R.drawable.profile_not_active);
-        profileTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        scanImageView.setImageResource(R.drawable.qr_code_not_active);
+        scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
     }
 
     public void configureNavigationMenuForNews() {
@@ -103,8 +103,8 @@ public class NavigationMenuFragment extends Fragment {
         newsTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
         buyImageView.setImageResource(R.drawable.food_not_active);
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
-        profileImageView.setImageResource(R.drawable.profile_not_active);
-        profileTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        scanImageView.setImageResource(R.drawable.qr_code_not_active);
+        scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
     }
     public void configureNavigationMenuForBuy() {
         reservationImageView.setImageResource(R.drawable.reservation_not_active);
@@ -113,18 +113,18 @@ public class NavigationMenuFragment extends Fragment {
         newsTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         buyImageView.setImageResource(R.drawable.food_active);
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
-        profileImageView.setImageResource(R.drawable.profile_not_active);
-        profileTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        scanImageView.setImageResource(R.drawable.qr_code_not_active);
+        scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
     }
 
-    public void configureNavigationMenuForProfile() {
+    public void configureNavigationMenuForScan() {
         reservationImageView.setImageResource(R.drawable.reservation_not_active);
         reservationTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         newsImageView.setImageResource(R.drawable.news_not_active);
         newsTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         buyImageView.setImageResource(R.drawable.food_not_active);
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
-        profileImageView.setImageResource(R.drawable.profile_active);
-        profileTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
+        scanImageView.setImageResource(R.drawable.qr_code_active);
+        scanTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
     }
 }

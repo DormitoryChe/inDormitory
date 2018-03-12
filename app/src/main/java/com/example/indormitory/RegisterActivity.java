@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class RegisterActivity extends AppCompatActivity {
+    private String name;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
