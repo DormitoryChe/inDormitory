@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">In dormitory</string>
     <string name="login_title">Login</string>
-    <string name="login_button_label">Login</string>
-    <string name="do_not_have_account">Doesn`t have account? Register now!</string>
+    <string name="login_button_label">Sign in</string>
+    <string name="do_not_have_account">Doesn`t have account?</string>
+    <string name="register_now"> <u> Register now! </u> </string>
     
     <!-- For navigation menu -->
     <string name="reservation">Reservation</string>

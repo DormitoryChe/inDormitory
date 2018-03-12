@@ -59,7 +59,7 @@ public class NewsActivity extends AppCompatActivity {
             super(inflater.inflate(R.layout.list_item_news, parent, false));
 
             mTitleTextView = itemView.findViewById(R.id.news_title);
-            mDescriptionTextView = itemView.findViewById(R.id.news_description);
+            mDescriptionTextView = itemView.findViewById(R.id.price);
         }
 
         void bind(News news) {

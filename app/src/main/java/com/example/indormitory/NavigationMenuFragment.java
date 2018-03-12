@@ -1,5 +1,6 @@
 package com.example.indormitory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,47 +42,42 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView = view.findViewById(R.id.text_view_buy);
         scanTextView = view.findViewById(R.id.text_view_scan);
 
-        /*if (getActivity() instanceof HomeActivity)
-            configureNavigationMenuForLearn();
-        else if (getActivity() instanceof SearchActivity)
-            configureNavigationMenuForSearch();
-        else if (getActivity() instanceof ArticlesActivity)
-            configureNavigationMenuForArticles();
-        else if (getActivity() instanceof ProfileActivity)
-            configureNavigationMenuForHome();*/
+        if (getActivity() instanceof MenuActivity)
+            configureNavigationMenuForBuy();
+        else if (getActivity() instanceof ReservationActivity)
+            configureNavigationMenuForReservation();
+        else if (getActivity() instanceof NewsActivity)
+            configureNavigationMenuForNews();
+        else if (getActivity() instanceof ScanActivity)
+            configureNavigationMenuForScan();
 
         reservationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                configureNavigationMenuForReservation();
-                //startActivity(new Intent(getContext(), SearchActivity.class));
+                startActivity(new Intent(getContext(), ReservationActivity.class));
             }
         });
 
         newsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                configureNavigationMenuForNews();
-                //startActivity(new Intent(getContext(), HomeActivity.class));
+                startActivity(new Intent(getContext(), NewsActivity.class));
             }
         });
 
         buyLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                configureNavigationMenuForBuy();
-                //startActivity(new Intent(getContext(), ProfileActivity.class));
+                startActivity(new Intent(getContext(), MenuActivity.class));
             }
         });
 
         scanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                configureNavigationMenuForScan();
-                //startActivity(new Intent(getContext(), ArticlesActivity.class));
+                startActivity(new Intent(getContext(), ScanActivity.class));
             }
         });
-
         return view;
     }
 

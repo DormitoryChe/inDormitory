@@ -8,7 +8,7 @@
     android:layout_margin="10dp">
 
     <ImageView
-        android:id="@+id/news_logo"
+        android:id="@+id/menu_logo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="8dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/news_description"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/black"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/news_logo"/>
+        app:layout_constraintTop_toBottomOf="@id/menu_logo"/>
 
     <TextView
         android:id="@+id/date"
@@ -51,7 +51,7 @@
         android:inputType="date"
         android:text="11.12.11"
         android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@id/news_logo"
+        app:layout_constraintBottom_toBottomOf="@id/menu_logo"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:src="@drawable/arrow_down"
-        app:layout_constraintTop_toBottomOf="@id/news_description"
+        app:layout_constraintTop_toBottomOf="@id/price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
