@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/menu_logo"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/salat"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/menu_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textAlignment="center"
+                android:text="Olive"
+                android:background="#90FFFFFF"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/menu_logo"
+                />
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="$ 123"
+                android:textStyle="bold"
+                android:textColor="#00380e"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu_logo"/>
+
+            <Button
+                app:layout_constraintTop_toBottomOf="@id/menu_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/button_buy"
+                android:text="add"
+                android:textAlignment="textStart"
+                android:paddingStart="10dp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorMenuActive"
+                android:textSize="20sp"/>
+
+
+            <View
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/hr_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorMenuActive"
+                app:layout_constraintTop_toBottomOf="@id/price"
+                android:layout_marginTop="8dp"
+                />
+            <TextView
+                android:id="@+id/ingredients_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hr_line" />
+
+            <LinearLayout
+                android:id="@+id/ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_title">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/circle"
+                    android:drawablePadding="4dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Горошок (1 коробка)"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/circle"
+                    android:drawablePadding="4dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Майонез (на око)"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/circle"
+                    android:drawablePadding="4dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Ковбаса (200 грам на порцію)"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/circle"
+                    android:drawablePadding="4dp"
+                    android:layout_marginBottom="3dp"
+                    android:text="Картопля варена (100 грам на порцію)"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+            <View
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/hr_line2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorMenuActive"
+                app:layout_constraintTop_toBottomOf="@id/ingredients"
+                android:layout_marginTop="8dp"
+                />
+            <TextView
+                android:id="@+id/method_of_cooking_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Method of cooking"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hr_line2" />
+
+            <TextView
+                android:id="@+id/method_of_cooking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Все нарізають кубиками, перемішують і заправляють майонезом. Простота виготовлення і доступність інгредієнтів зробили цей салат надзвичайно популярною стравою в радянські роки. «Олів'є» був неодмінним атрибутом радянського святкового столу на 7 листопада і Новий рік. Інша назва сучасного рецепта цього салату — «Зимовий» — виникло через те, що його інгредієнти легко доступні в зимовий час, на відміну від інгредієнтів «літніх» салатів."
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/method_of_cooking_title" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c4c4c4" />
+    <fragment
+        android:id="@+id/navigation_menu_fragment"
+        class="com.example.indormitory.NavigationMenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+</LinearLayout>
+
