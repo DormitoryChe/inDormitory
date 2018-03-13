@@ -75,6 +75,7 @@ public class NavigationMenuFragment extends Fragment {
         scanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getContext(), ScanActivity.class));
             }
         });
