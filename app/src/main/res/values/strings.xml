@@ -11,4 +11,11 @@
     <string name="news">News</string>
     <string name="buy">Menu</string>
     <string name="scan">Scan</string>
+
+    <!-- Error messages -->
+    <string name="empty_login_email_error">"This field cannot be blank !!!"</string>
+    <string name="incorrect_login_email_error">"Try again. At least 5 symbols!"</string>
+    <string name="email_not_valid">"Email is not valid!"</string>
+    <string name="empty_login_password_error">"This field cannot be blank !!!"</string>
+    <string name="incorrect_login_password_error">"Incorrect password. At least 6 symbols!"</string>
 </resources>

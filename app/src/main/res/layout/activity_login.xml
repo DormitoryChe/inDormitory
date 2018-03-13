@@ -19,7 +19,9 @@
             />
 
         <EditText
+            android:id="@+id/login_email_input"
             android:hint="email"
+            android:maxLength="30"
             android:textAlignment="center"
             android:inputType="text"
             android:layout_width="match_parent"
@@ -30,7 +32,9 @@
             />
 
         <EditText
+            android:id="@+id/login_password_input"
             android:hint="password"
+            android:maxLength="15"
             android:textAlignment="center"
             android:inputType="textPassword"
             android:layout_width="match_parent"
@@ -41,6 +45,7 @@
             />
 
         <Button
+            android:id="@+id/login_submit_button"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
