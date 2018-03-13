@@ -4,23 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
-import android.transition.Scene;
-import android.transition.TransitionManager;
-import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.indormitory.models.News;
@@ -43,13 +36,7 @@ public class NewsActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.navigation_menu_fragment, fragment).commit();
         for(int i = 0; i < 10; i ++)
-            // TODO normal string description
-            mNewsList.add(new News("News # " + i, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n" +
-                    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n" +
-                    "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n" +
-                    "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n" +
-                    "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n" +
-                    "proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Image path"));
+            mNewsList.add(new News("News # " + i, "Description", "Image path"));
         configureAdapter();
     }
 
@@ -64,42 +51,21 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private class NewsHolder extends RecyclerView.ViewHolder {
-        private ViewGroup mNewsContainer;
         private TextView mTitleTextView;
         private TextView mDescriptionTextView;
-        private ImageButton mMoreDescriptionButton;
         private News mNews;
 
         NewsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_news, parent, false));
 
-            mNewsContainer = itemView.findViewById(R.id.news_list_container);
             mTitleTextView = itemView.findViewById(R.id.news_title);
-            mDescriptionTextView = itemView.findViewById(R.id.news_description);
-            mMoreDescriptionButton = itemView.findViewById(R.id.news_more_button);
+            mDescriptionTextView = itemView.findViewById(R.id.price);
         }
 
         void bind(News news) {
             mNews = news;
             mTitleTextView.setText(mNews.getTitle());
             mDescriptionTextView.setText(mNews.getDescription());
-
-            mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
-                boolean isMoreTextVisible = false;
-                @Override
-                public void onClick(View v) {
-                    TransitionManager.beginDelayedTransition(mNewsContainer);
-                    if (isMoreTextVisible) {
-                        mDescriptionTextView.setMaxLines(3);
-                        mMoreDescriptionButton.setImageResource(R.drawable.arrow_down);
-                    } else {
-                        mDescriptionTextView.setMaxLines(50);
-                        mMoreDescriptionButton.setImageResource(R.drawable.arrow_up);
-                    }
-
-                    isMoreTextVisible = !isMoreTextVisible;
-                }
-            });
         }
     }
 

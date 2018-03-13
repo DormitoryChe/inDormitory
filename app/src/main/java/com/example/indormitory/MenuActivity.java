@@ -7,13 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Jeckk on 12.03.2018.
  */
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends BaseActivity {
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
     private String[] items = {"Алкоголь", "Булочки", "М'ясні страви", "Більше алкоголю"};
@@ -26,17 +25,19 @@ public class MenuActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.menu_view_pager);
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setClipToPadding(false);
+        mViewPager.setPadding(40,0,40,0);
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        public MyFragmentPagerAdapter(FragmentManager fm) {
+        MyFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return FragmentMenuItem.newInstance(position);
+            return MenuItemFragment.newInstance(position);
         }
 
         @Override

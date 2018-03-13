@@ -42,7 +42,7 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView = view.findViewById(R.id.text_view_buy);
         scanTextView = view.findViewById(R.id.text_view_scan);
 
-        if (getActivity() instanceof MenuActivity)
+        if (getActivity() instanceof MenuActivity || getActivity() instanceof ItemMenuActivity)
             configureNavigationMenuForBuy();
         else if (getActivity() instanceof ReservationActivity)
             configureNavigationMenuForReservation();
@@ -75,6 +75,7 @@ public class NavigationMenuFragment extends Fragment {
         scanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getContext(), ScanActivity.class));
             }
         });

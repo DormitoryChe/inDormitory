@@ -5,14 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by Jeckk on 12.03.2018.
+ * Created by Ростислав on 13.03.2018.
  */
 
-public class ReservationActivity extends BaseActivity {
+public class ItemMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation);
+        setContentView(R.layout.activity_item_menu);
     }
 }
