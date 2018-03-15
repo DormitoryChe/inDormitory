@@ -1,10 +1,24 @@
 <resources>
+
     <string name="app_name">In dormitory</string>
+
+    <!--For shopping cart -->
+    <string name="shopping_cart_label">Shopping cart</string>
+
+    <!--For login in and register-->
     <string name="login_title">Login</string>
+    <string name="register_title">Register</string>
+    <string name="user_name">name</string>
+    <string name="phone_number">phone number</string>
+    <string name="password">password</string>
+    <string name="verify_password">verify password</string>
     <string name="login_button_label">Sign in</string>
+    <string name="register_button_label">Sign up</string>
     <string name="do_not_have_account">Doesn`t have account?</string>
     <string name="register_now"> <u> Register now! </u> </string>
-    
+    <string name="login_by">Login by</string>
+    <string name="privacy_policy">Privacy Policy</string>
+
     <!-- For navigation menu -->
     <string name="reservation">Reservation</string>
     <string name="profile">Profile</string>

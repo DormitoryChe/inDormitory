@@ -17,6 +17,11 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void startShoppingCartActivity() {
+        //TODO change to Shopping cart Activity
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -31,6 +36,9 @@ public class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.login_button:
                 startLoginActivity();
+                return true;
+            case R.id.shopping_cart:
+                startShoppingCartActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

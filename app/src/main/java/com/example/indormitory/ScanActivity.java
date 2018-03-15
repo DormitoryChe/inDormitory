@@ -22,15 +22,27 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
         super.onCreate(savedInstanceState);
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
-
+        Log.e("QR", "on Create");
     }
 
     @Override
-    public void onPause() {
-            super.onPause();
-            mScannerView.stopCamera();
+    public void onStart() {
+        super.onStart();
+        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        mScannerView.startCamera();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mScannerView.resumeCameraPreview(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mScannerView.stopCameraPreview();
+        mScannerView.stopCamera();
     }
 
     @Override

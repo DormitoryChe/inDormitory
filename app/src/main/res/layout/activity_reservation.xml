@@ -1,15 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20">
+        android:layout_weight="20"
+        android:orientation="vertical">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+
+
+                <TextView
+                    android:id="@+id/greeting_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:text="Here you can reserve a table"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorMenuActive"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    />
+
+
+                <ImageView
+                    android:id="@+id/coffee_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/coffee_map"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/greeting_text"
+
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="139dp"
+                    android:layout_marginStart="45dp"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="179dp"
+                    android:layout_marginStart="45dp"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="219dp"
+                    android:layout_marginStart="45dp"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="259dp"
+                    android:layout_marginStart="45dp"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="312dp"
+                    android:layout_marginStart="30dp"
+
+                    android:layout_width="60dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="417dp"
+                    android:layout_marginStart="30dp"
+
+                    android:layout_width="60dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="521dp"
+                    android:layout_marginStart="30dp"
+
+                    android:layout_width="60dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="655dp"
+                    android:layout_marginStart="60dp"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/seat_free"
+                    />
+                <Button
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="725dp"
+                    android:layout_marginStart="60dp"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/seat_free"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </ScrollView>
+
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

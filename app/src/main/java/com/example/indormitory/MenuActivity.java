@@ -26,7 +26,7 @@ public class MenuActivity extends BaseActivity {
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setClipToPadding(false);
-        mViewPager.setPadding(40,0,40,0);
+//        mViewPager.setPadding(40,0,40,0);
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {

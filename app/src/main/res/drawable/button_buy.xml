@@ -6,7 +6,7 @@
                 android:radius="5dp"
                 />
             <solid
-                android:color="#fcfcfc"
+                android:color="#20FFFFFF"
                 />
             <padding
                 android:left="0dp"
@@ -22,7 +22,7 @@
 
         </shape>
     </item>
-    <item android:drawable="@drawable/shopping_cart" android:left="60dp" android:top="3dp" android:end="10dp" android:bottom="3dp" android:height="30dp" android:width="30dp"/>
+    <item android:drawable="@drawable/shopping_cart" android:start="60dp" android:top="3dp" android:end="10dp" android:bottom="3dp" android:height="30dp" android:width="30dp"/>
 
 
 </layer-list>

@@ -79,7 +79,7 @@
     <View
         android:id="@+id/news_hr_line"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="2dp"
         android:background="@color/colorMenuActive"
         app:layout_constraintTop_toBottomOf="@id/news_more_button"
         android:layout_marginTop="8dp"
