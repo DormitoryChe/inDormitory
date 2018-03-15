@@ -18,8 +18,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void startShoppingCartActivity() {
-        //TODO change to Shopping cart Activity
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, ShoppingCartActivity.class);
         startActivity(intent);
     }
     @Override

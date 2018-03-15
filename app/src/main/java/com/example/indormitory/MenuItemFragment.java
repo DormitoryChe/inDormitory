@@ -7,13 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
-import com.example.indormitory.models.News;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +77,7 @@ public class MenuItemFragment extends Fragment {
     private class DishHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mPriceTextView;
+        private Button mAddButton;
         private Dish mDish;
 
         DishHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -83,12 +86,21 @@ public class MenuItemFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = itemView.findViewById(R.id.dish_title);
             mPriceTextView = itemView.findViewById(R.id.dish_price);
+            mAddButton = itemView.findViewById(R.id.dish_add_button);
         }
 
         void bind(Dish dish) {
             mDish = dish;
             mTitleTextView.setText(mDish.getTitle());
             mPriceTextView.setText(String.valueOf(mDish.getPrice()));
+            mAddButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Basket.get(getContext()).addDish(mDish);
+                    Log.e("Basket", Basket.get(getContext()).getDishes().toString());
+
+                }
+            });
         }
 
         @Override
@@ -127,6 +139,5 @@ public class MenuItemFragment extends Fragment {
             mDishesList.addAll(dishesList);
             this.notifyItemRangeInserted(0, mDishesList.size() - 1);
         }
-
     }
 }
