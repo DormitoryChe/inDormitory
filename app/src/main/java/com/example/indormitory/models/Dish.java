@@ -47,4 +47,12 @@ public class Dish {
     public String getMethodOfCooking() {
         return methodOfCooking;
     }
+
+    @Override
+    public String toString() {
+        return "Dish " +
+                "uuid = " + uuid +
+                ", title = '" + title + '\'' +
+                ", price = " + price + '\n';
+    }
 }

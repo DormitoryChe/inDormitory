@@ -78,6 +78,9 @@ public class MenuItemFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mPriceTextView;
         private Button mAddButton;
+        private Button mDishPlusButton;
+        private Button mDishMinusButton;
+        private TextView mDishCountTextView;
         private Dish mDish;
 
         DishHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -87,6 +90,9 @@ public class MenuItemFragment extends Fragment {
             mTitleTextView = itemView.findViewById(R.id.dish_title);
             mPriceTextView = itemView.findViewById(R.id.dish_price);
             mAddButton = itemView.findViewById(R.id.dish_add_button);
+            mDishPlusButton = itemView.findViewById(R.id.dish_plus_button);
+            mDishMinusButton = itemView.findViewById(R.id.dish_minus_button);
+            mDishCountTextView = itemView.findViewById(R.id.dish_count);
         }
 
         void bind(Dish dish) {
@@ -96,9 +102,23 @@ public class MenuItemFragment extends Fragment {
             mAddButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Basket.get(getContext()).addDish(mDish);
+                    Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
                     Log.e("Basket", Basket.get(getContext()).getDishes().toString());
-
+                    Log.e("Basket", String.valueOf(Basket.get(getContext()).getTotal()));
+                }
+            });
+            mDishPlusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(Integer.valueOf(mDishCountTextView.getText().toString()) < 50)
+                        mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
+                }
+            });
+            mDishMinusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1)
+                        mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) - 1));
                 }
             });
         }
@@ -134,7 +154,7 @@ public class MenuItemFragment extends Fragment {
             return mDishesList.size();
         }
 
-        void setNews(List<Dish> dishesList) {
+        void setDishes(List<Dish> dishesList) {
             mDishesList.clear();
             mDishesList.addAll(dishesList);
             this.notifyItemRangeInserted(0, mDishesList.size() - 1);
