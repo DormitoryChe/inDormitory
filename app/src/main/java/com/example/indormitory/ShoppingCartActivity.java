@@ -28,6 +28,7 @@ public class ShoppingCartActivity extends BaseActivity {
     private RecyclerView mMenuRecyclerView;
     private MenuAdapter mAdapter;
     private Map<Dish, Integer> mDishes;
+    private TextView totalPrice;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class ShoppingCartActivity extends BaseActivity {
         setContentView(R.layout.activity_shopping_cart);
         mDishes = Basket.get(getApplicationContext()).getDishes();
         mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
+        totalPrice = findViewById(R.id.total_price);
+        totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
         mMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         configureAdapter();
     }
@@ -82,18 +85,25 @@ public class ShoppingCartActivity extends BaseActivity {
             mDishPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Integer.valueOf(mDishCountTextView.getText().toString()) < 50)
+                    if(Integer.valueOf(mDishCountTextView.getText().toString()) < 50) {
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
+                        mTotalPriceTextView.setText(String.valueOf(mDish.getPrice()*Integer.valueOf(mDishCountTextView.getText().toString())));
+                        Basket.get(getApplicationContext()).addDish(mDish, 1);
+                        totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                    }
                 }
             });
             mDishMinusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1)
+                    if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1) {
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) - 1));
+                        mTotalPriceTextView.setText(String.valueOf(mDish.getPrice()*Integer.valueOf(mDishCountTextView.getText().toString())));
+                        Basket.get(getApplicationContext()).minusDish(mDish);
+                        totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                    }
                 }
             });
-
         }
     }
 
@@ -112,10 +122,20 @@ public class ShoppingCartActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull DishHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final DishHolder holder, int position) {
             List<Dish> dishes = new ArrayList<>(mDishesMap.keySet());
-            Dish dish = dishes.get(position);
+            final Dish dish = dishes.get(position);
             holder.bind(dish, mDishesMap.get(dish));
+            holder.mDeleteDishButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDishesMap.remove(dish);
+                    Basket.get(getApplicationContext()).deleteDish(dish);
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(), mDishesMap.size());
+                    totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                }
+            });
         }
 
         @Override
