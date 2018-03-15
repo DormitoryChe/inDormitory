@@ -3,6 +3,7 @@ package com.example.indormitory.models;
 import android.content.Context;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -21,16 +22,18 @@ public class Basket {
     }
 
     private Basket(Context context) {
-        mDishes = new HashMap<>();
+        mDishes = new LinkedHashMap<>();
         mTotal = 0;
     }
 
-    public void addDish(Dish dish) {
-        updateTotal(dish);
+    public void addDish(Dish dish, int count) {
+        for(int i = 0; i < count; i ++)
+            updateTotal(dish);
+
         if(mDishes.containsKey(dish))
-            mDishes.put(dish, mDishes.get(dish) + 1);
+            mDishes.put(dish, mDishes.get(dish) +count);
         else
-            mDishes.put(dish, 1);
+            mDishes.put(dish, count);
     }
 
     public Map<Dish, Integer> getDishes() {
@@ -39,5 +42,9 @@ public class Basket {
 
     private void updateTotal(Dish dish) {
         mTotal += dish.getPrice();
+    }
+
+    public double getTotal() {
+        return mTotal;
     }
 }
