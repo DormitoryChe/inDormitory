@@ -104,13 +104,13 @@ public class MenuItemFragment extends Fragment {
                 public void onClick(View v) {
                     Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
                     Log.e("Basket", Basket.get(getContext()).getDishes().toString());
-                    Log.e("Basket", String.valueOf(Basket.get(getContext()).getTotal()));
+                    //Log.e("Basket", String.valueOf(Basket.get(getContext()).getTotal()));
                 }
             });
             mDishPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(Integer.valueOf(mDishCountTextView.getText().toString()) < 50)
+                    if(Integer.valueOf(mDishCountTextView.getText().toString()) < 10)
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
                 }
             });

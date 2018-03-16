@@ -27,21 +27,38 @@ public class Basket {
     }
 
     public void addDish(Dish dish, int count) {
-        for(int i = 0; i < count; i ++)
-            updateTotal(dish);
 
-        if(mDishes.containsKey(dish))
-            mDishes.put(dish, mDishes.get(dish) +count);
-        else
+        if(mDishes.containsKey(dish)) {
+            mDishes.put(dish, mDishes.get(dish) + count);
+            updateTotal();
+        }
+        else {
             mDishes.put(dish, count);
+            updateTotal();
+        }
+    }
+
+    public void minusDish(Dish dish) {
+        mDishes.put(dish, mDishes.get(dish) - 1);
+        updateTotal();
+    }
+
+    public void deleteDish(Dish dish) {
+        mDishes.remove(dish);
+        updateTotal();
     }
 
     public Map<Dish, Integer> getDishes() {
         return mDishes;
     }
 
-    private void updateTotal(Dish dish) {
-        mTotal += dish.getPrice();
+    public void updateTotal() {
+        double newTotal = 0;
+        for(Map.Entry<Dish, Integer> entry : mDishes.entrySet()) {
+            double temp = entry.getValue()*entry.getKey().getPrice();
+            newTotal += temp;
+        }
+        mTotal = newTotal;
     }
 
     public double getTotal() {
