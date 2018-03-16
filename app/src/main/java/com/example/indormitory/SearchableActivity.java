@@ -15,7 +15,7 @@ public class SearchableActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        // Get the intent, verify the action and get the query
+        // Get the intent, ve rify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);

@@ -5,19 +5,22 @@
     <!--For shopping cart -->
     <string name="shopping_cart_label">Shopping cart</string>
 
-    <!--For login in and register-->
+    <!--For login -->
     <string name="login_title">Login</string>
-    <string name="register_title">Register</string>
-    <string name="user_name">name</string>
-    <string name="phone_number">phone number</string>
-    <string name="password">password</string>
-    <string name="verify_password">verify password</string>
     <string name="login_button_label">Sign in</string>
-    <string name="register_button_label">Sign up</string>
     <string name="do_not_have_account">Doesn`t have account?</string>
     <string name="register_now"> <u> Register now! </u> </string>
     <string name="login_by">Login by</string>
-    <string name="privacy_policy">Privacy Policy</string>
+
+    <!-- For Register -->
+    <string name="register_title">Register</string>
+    <string name="register_user_name">name</string>
+    <string name="register_phone_number">phone number</string>
+    <string name="register_password">password</string>
+    <string name="register_verify_password">verify password</string>
+    <string name="register_button_label">Sign up</string>
+    <string name="register_privacy_policy">Privacy Policy</string>
+    <string name="register_email">email</string>
 
     <!-- For navigation menu -->
     <string name="reservation">Reservation</string>
@@ -30,9 +33,11 @@
     <string name="search_hint">Search here...</string>
 
     <!-- Error messages -->
-    <string name="empty_login_email_error">"This field cannot be blank !!!"</string>
-    <string name="incorrect_login_email_error">"Try again. At least 5 symbols!"</string>
+    <string name="empty_field_error">"This field cannot be blank !!!"</string>
     <string name="email_not_valid">"Email is not valid!"</string>
-    <string name="empty_login_password_error">"This field cannot be blank !!!"</string>
-    <string name="incorrect_login_password_error">"Incorrect password. At least 6 symbols!"</string>
+    <string name="incorrect_password_error">"Incorrect password. At least 6 symbols!"</string>
+    <string name="name_not_valid">Enter correct name!</string>
+    <string name="phone_not_valid">Enter correct phone number</string>
+    <string name="passwords_do_not_match">Passwords do not match!</string>
+
 </resources>
