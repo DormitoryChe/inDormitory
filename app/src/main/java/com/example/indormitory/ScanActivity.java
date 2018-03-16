@@ -29,7 +29,7 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
     @Override
     public void onStart() {
         super.onStart();
-        mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
+        mScannerView.setResultHandler(this);// Register ourselves as a handler for scan results.
         mScannerView.startCamera();
     }
 

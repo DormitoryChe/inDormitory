@@ -3,14 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="@color/colorMenuActive"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/toolbar_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_back"
+                    tools:ignore="ContentDescription"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_marginStart="10dp"
+                    android:textColor="#ffffff"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_alignParentEnd="true">
+                <ImageView
+                    android:id="@+id/toolbar_shopping_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/shopping_cart_empty"
+                    android:layout_marginEnd="20dp"
+                    tools:ignore="ContentDescription"/>
+                <ImageView
+                    android:id="@+id/toolbar_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/profile"
+                    android:layout_marginEnd="15dp"
+                    tools:ignore="ContentDescription"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
     <ScrollView
+        android:id="@+id/shopping_cart_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/shopping_cart_recycler_view"
                 android:layout_width="match_parent"
@@ -27,7 +81,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@id/submit_shopping_cart"
-                app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view"/>/>
+                app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view"/>
             <Button
                 android:id="@+id/submit_shopping_cart"
                 android:layout_width="wrap_content"

@@ -27,7 +27,6 @@ public class Basket {
     }
 
     public void addDish(Dish dish, int count) {
-
         if(mDishes.containsKey(dish)) {
             mDishes.put(dish, mDishes.get(dish) + count);
             updateTotal();

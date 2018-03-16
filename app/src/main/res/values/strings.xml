@@ -30,7 +30,7 @@
     <string name="scan">Scan</string>
 
     <!-- For search -->
-    <string name="search_hint">Search here...</string>
+    <string name="search_hint">Search here…</string>
 
     <!-- Error messages -->
     <string name="empty_field_error">"This field cannot be blank !!!"</string>

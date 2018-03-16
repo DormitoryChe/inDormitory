@@ -49,6 +49,20 @@ public class NewsActivity extends BaseActivity {
         DataBindingUtil.setContentView(this, R.layout.activity_news);
         mNewsRecyclerView = findViewById(R.id.news_recycler_view);
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mProfileImageView = findViewById(R.id.toolbar_profile);
+        mProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsActivity.this, LoginActivity.class));
+            }
+        });
+        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsActivity.this, ShoppingCartActivity.class));
+            }
+        });
         Fragment fragment = new Fragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.navigation_menu_fragment, fragment).commit();

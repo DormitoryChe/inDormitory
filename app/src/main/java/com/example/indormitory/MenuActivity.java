@@ -1,5 +1,6 @@
 package com.example.indormitory;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.WindowManager;
 
 /**
@@ -28,6 +30,20 @@ public class MenuActivity extends BaseActivity {
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setClipToPadding(false);
+        mProfileImageView = findViewById(R.id.toolbar_profile);
+        mProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, LoginActivity.class));
+            }
+        });
+        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, ShoppingCartActivity.class));
+            }
+        });
 //       mViewPager.setPadding(40,0,40,0);
     }
 

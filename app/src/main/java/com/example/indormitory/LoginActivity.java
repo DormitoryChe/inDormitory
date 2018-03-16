@@ -8,14 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.indormitory.validators.Validator;
+import com.example.indormitory.validators.LoginValidator;
 
 /**
  * Created by vproh on 11.03.2018.
  */
 
 public class LoginActivity extends AppCompatActivity {
-    private TextView mRegisterNow;
+    private TextView mRegisterTextView;
     private TextView mLoginInput;
     private TextView mPasswordInput;
     private Button mSubmitButton;
@@ -26,11 +26,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mSubmitButton = findViewById(R.id.login_submit_button);
-        mRegisterNow = findViewById(R.id.register_now);
+        mRegisterTextView = findViewById(R.id.register_now);
         mLoginInput = findViewById(R.id.login_email_input);
         mPasswordInput = findViewById(R.id.login_password_input);
 
-        mRegisterNow.setOnClickListener(new View.OnClickListener() {
+        mRegisterTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
@@ -41,28 +41,22 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                boolean isLoginSuccessful = true;
-                String loginField = mLoginInput.getText().toString();
-                String passwordField = mPasswordInput.getText().toString();
+                int loginFieldLength = mLoginInput.getText().length();
+                int passwordFieldLength = mPasswordInput.getText().length();
 
-                if(Validator.isFieldEmpty(passwordField)) {
-                    isLoginSuccessful = false;
-                    mPasswordInput.setError(getString(R.string.empty_field_error));
-                } else if(!Validator.isPasswordLengthCorrect(passwordField)) {
-                    isLoginSuccessful = false;
-                    mPasswordInput.setError(getString(R.string.incorrect_password_error));
+                if(LoginValidator.isPasswordFieldEmpty(passwordFieldLength)) {
+                    mPasswordInput.setError(getString(R.string.empty_login_password_error));
+                } else if(!LoginValidator.isPasswordLengthCorrect(passwordFieldLength)) {
+                    mPasswordInput.setError(getString(R.string.incorrect_login_password_error));
                 }
 
-                if(Validator.isFieldEmpty(loginField)) {
-                    isLoginSuccessful = false;
-                    mLoginInput.setError(getString(R.string.empty_field_error));
-                } else if(!Validator.isEmailValid(loginField)) {
-                    isLoginSuccessful = false;
+                if(LoginValidator.isEmailFieldEmpty(loginFieldLength)) {
+                    mLoginInput.setError(getString(R.string.empty_login_email_error));
+                } else if(!LoginValidator.isEmailValid(mLoginInput.getText().toString())) {
                     mLoginInput.setError(getString(R.string.email_not_valid));
+                } else if(!LoginValidator.isEmailLenghtCorrect(loginFieldLength)) {
+                    mLoginInput.setError(getString(R.string.incorrect_login_email_error));
                 }
-
-                if(isLoginSuccessful)
-                    startActivity(new Intent(getApplicationContext(), NewsActivity.class));
             }
         });
     }
