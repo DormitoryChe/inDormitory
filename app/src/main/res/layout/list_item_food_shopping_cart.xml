@@ -2,17 +2,16 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#f5f5f5"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:id="@+id/item_food_shopping_wrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:paddingTop="8dp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="6dp"
         android:background="@android:color/white"
         android:gravity="center">
 
@@ -113,12 +112,12 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
         </LinearLayout>
 
         <ImageButton
+            android:layout_marginEnd="5dp"
             android:id="@+id/delete_dish"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -129,11 +128,14 @@
 
     </LinearLayout>
     <View
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorMenuNotActive"
         app:layout_constraintTop_toBottomOf="@id/item_food_shopping_wrap"
 
         />
+
 
 </android.support.constraint.ConstraintLayout>
