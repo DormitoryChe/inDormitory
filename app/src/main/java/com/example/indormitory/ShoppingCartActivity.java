@@ -6,12 +6,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.indormitory.models.Basket;
@@ -28,13 +30,37 @@ import java.util.Map;
 public class ShoppingCartActivity extends BaseActivity {
     private RecyclerView mMenuRecyclerView;
     private MenuAdapter mAdapter;
+    ImageView mBackImageView;
     private Map<Dish, Integer> mDishes;
     private TextView totalPrice;
+    private ScrollView mScrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
+        mScrollView = findViewById(R.id.shopping_cart_scroll_view);
+        mBackImageView = findViewById(R.id.toolbar_back);
+        mBackImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mProfileImageView = findViewById(R.id.toolbar_profile);
+        mProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+            }
+        });
+        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShoppingCartActivity.this, ShoppingCartActivity.class));
+            }
+        });
         mDishes = Basket.get(getApplicationContext()).getDishes();
         mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
         totalPrice = findViewById(R.id.total_price);
@@ -141,6 +167,16 @@ public class ShoppingCartActivity extends BaseActivity {
 
         @Override
         public int getItemCount() {
+            if(mDishesMap.size() == 0){
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.gravity = Gravity.CENTER;
+                TextView textView = new TextView(getApplicationContext());
+                textView.setText("There is nothing");
+                textView.setTextColor(getResources().getColor(R.color.colorMenuActive));
+                textView.setLayoutParams(params);
+                mScrollView.removeAllViews();
+                mScrollView.addView(textView);
+            }
             return mDishesMap.size();
         }
 
