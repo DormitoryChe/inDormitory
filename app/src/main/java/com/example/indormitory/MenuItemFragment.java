@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
 
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class MenuItemFragment extends Fragment {
     static final String PAGE_ITEM = "page_item";
-    private static String[] items = {"Алкоголь", "Булочки", "М'ясні страви", "Більше алкоголю"};
+    private static String[] items;
     private String mItem;
     private RecyclerView mMenuRecyclerView;
     private MenuAdapter mAdapter;
@@ -35,6 +36,7 @@ public class MenuItemFragment extends Fragment {
 
     static MenuItemFragment newInstance(int position) {
         MenuItemFragment menuItemFragment = new MenuItemFragment();
+        items = AllDishes.get().getAllDishes().keySet().toArray(new String[AllDishes.get().getAllDishes().keySet().size()]);
         Bundle arguments = new Bundle();
         arguments.putString(PAGE_ITEM, items[position]);
         menuItemFragment.setArguments(arguments);
@@ -45,6 +47,8 @@ public class MenuItemFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItem = getArguments().getString(PAGE_ITEM);
+        mDishesList.clear();
+        mDishesList = AllDishes.get().getAllDishes().get(mItem);
     }
 
     @Nullable
@@ -55,9 +59,6 @@ public class MenuItemFragment extends Fragment {
         textView.setText(mItem);
         mMenuRecyclerView = view.findViewById(R.id.menu_recycler_view);
         mMenuRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDishesList.clear();
-        for(int i = 0; i < 5; i ++)
-            mDishesList.add(new Dish("Olive", 50 + i, null, null, null));
         configureAdapter();
         return view;
     }
@@ -104,6 +105,7 @@ public class MenuItemFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
+                    Log.e("Basket", mDish.getUuid().toString());
                 }
             });
             mDishPlusButton.setOnClickListener(new View.OnClickListener() {

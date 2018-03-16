@@ -11,6 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.example.indormitory.models.AllDishes;
+import com.example.indormitory.models.Dish;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jeckk on 12.03.2018.
  */
@@ -25,6 +31,15 @@ public class MenuActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_menu);
+
+        if(AllDishes.get().getAllDishes().size() == 0) {
+            for(String item : items) {
+                List<Dish> mDishesList = new ArrayList<>();
+                for(int i = 0; i < 5; i ++)
+                    mDishesList.add(new Dish("Olive", 50 + i, null, null, null));
+                AllDishes.get().addDishesByOneMenuItem(item, mDishesList);
+            }
+        }
 
         mViewPager = findViewById(R.id.menu_view_pager);
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
@@ -44,7 +59,6 @@ public class MenuActivity extends BaseActivity {
                 startActivity(new Intent(MenuActivity.this, ShoppingCartActivity.class));
             }
         });
-//       mViewPager.setPadding(40,0,40,0);
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
