@@ -26,6 +26,9 @@
     <string name="buy">Menu</string>
     <string name="scan">Scan</string>
 
+    <!-- For search -->
+    <string name="search_hint">Search here...</string>
+
     <!-- Error messages -->
     <string name="empty_login_email_error">"This field cannot be blank !!!"</string>
     <string name="incorrect_login_email_error">"Try again. At least 5 symbols!"</string>

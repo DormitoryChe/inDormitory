@@ -1,6 +1,10 @@
 package com.example.indormitory;
 
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,10 +12,12 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.transition.Fade;
 import android.transition.Scene;
 import android.transition.TransitionManager;
 import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +26,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.indormitory.models.News;
@@ -28,7 +37,7 @@ import com.example.indormitory.models.News;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends BaseActivity {
     private RecyclerView mNewsRecyclerView;
     private NewsAdapter mAdapter;
     private List<News> mNewsList = new ArrayList<>();
@@ -36,7 +45,8 @@ public class NewsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        DataBindingUtil.setContentView(this, R.layout.activity_news);
         mNewsRecyclerView = findViewById(R.id.news_recycler_view);
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Fragment fragment = new Fragment();
@@ -64,7 +74,6 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private class NewsHolder extends RecyclerView.ViewHolder {
-        private ViewGroup mNewsContainer;
         private TextView mTitleTextView;
         private TextView mDescriptionTextView;
         private ImageButton mMoreDescriptionButton;
@@ -73,7 +82,6 @@ public class NewsActivity extends AppCompatActivity {
         NewsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_news, parent, false));
 
-            mNewsContainer = itemView.findViewById(R.id.news_list_container);
             mTitleTextView = itemView.findViewById(R.id.news_title);
             mDescriptionTextView = itemView.findViewById(R.id.news_description);
             mMoreDescriptionButton = itemView.findViewById(R.id.news_more_button);
@@ -86,14 +94,27 @@ public class NewsActivity extends AppCompatActivity {
 
             mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
                 boolean isMoreTextVisible = false;
+
+                ObjectAnimator animation = ObjectAnimator.ofInt(
+                        mDescriptionTextView,
+                        "maxLines",
+                        25);
+                ObjectAnimator animation1 = ObjectAnimator.ofInt(
+                        mDescriptionTextView,
+                        "maxLines",
+                        3);
+
                 @Override
                 public void onClick(View v) {
-                    TransitionManager.beginDelayedTransition(mNewsContainer);
+                   animation.setDuration(1000);
+                   animation1.setDuration(1000);
+                    Log.e("BaseActivity", "Start delay = " + animation.getStartDelay() );
+
                     if (isMoreTextVisible) {
-                        mDescriptionTextView.setMaxLines(3);
+                        animation1.start();
                         mMoreDescriptionButton.setImageResource(R.drawable.arrow_down);
                     } else {
-                        mDescriptionTextView.setMaxLines(50);
+                        animation.start();
                         mMoreDescriptionButton.setImageResource(R.drawable.arrow_up);
                     }
 
@@ -130,31 +151,6 @@ public class NewsActivity extends AppCompatActivity {
 
         void setNews(List<News> newsList) {
             mNewsList = newsList;
-        }
-    }
-
-    private void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_option_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.login_button:
-                startLoginActivity();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

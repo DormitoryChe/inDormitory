@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Ростислав on 13.03.2018.
  */
 
-public class ItemMenuActivity extends AppCompatActivity {
+public class ItemMenuActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
