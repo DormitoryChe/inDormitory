@@ -97,7 +97,7 @@
 
         <EditText
             android:id="@+id/register_name_input"
-            android:hint="@string/user_name"
+            android:hint="@string/register_user_name"
             android:maxLength="30"
             android:textAlignment="center"
             android:inputType="text"
@@ -110,7 +110,7 @@
 
         <EditText
             android:id="@+id/register_phone_number_input"
-            android:hint="@string/phone_number"
+            android:hint="@string/register_phone_number"
             android:maxLength="13"
             android:textAlignment="center"
             android:inputType="phone"
@@ -136,7 +136,7 @@
 
         <EditText
             android:id="@+id/register_password_input"
-            android:hint="@string/password"
+            android:hint="@string/register_password"
             android:maxLength="15"
             android:textAlignment="center"
             android:inputType="textPassword"
@@ -149,7 +149,7 @@
 
         <EditText
             android:id="@+id/register_password_input_verify"
-            android:hint="@string/verify_password"
+            android:hint="@string/register_verify_password"
             android:maxLength="15"
             android:textAlignment="center"
             android:inputType="textPassword"
@@ -191,7 +191,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/privacy_policy"
+                android:text="@string/register_privacy_policy"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:paddingStart="10dp"

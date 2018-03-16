@@ -3,8 +3,6 @@ package com.example.indormitory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 
 /**
@@ -24,6 +22,7 @@ public class ReservationActivity extends BaseActivity {
                 startActivity(new Intent(ReservationActivity.this, LoginActivity.class));
             }
         });
+
         mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
         mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
             @Override
