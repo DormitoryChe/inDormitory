@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
-    <item>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <item android:right="1dp" android:left="1dp" android:bottom="2dp">
         <shape >
             <corners
                 android:radius="5dp"
@@ -22,8 +23,15 @@
 
         </shape>
     </item>
-    <item android:drawable="@drawable/shopping_cart" android:start="60dp" android:top="3dp" android:end="10dp" android:bottom="3dp" android:height="30dp" android:width="30dp"/>
 
+   <item
+       android:drawable="@drawable/shopping_cart"
+       android:width="30dp"
+       android:height="30dp"
+       android:gravity="right"
+       android:right="10dp"
+       android:top="2dp"
+       />
 
 </layer-list>
 

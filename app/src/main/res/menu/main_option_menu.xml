@@ -3,22 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/app_bar_switch"
-        android:title=""
-        app:actionLayout="@layout/switch_item"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/shopping_cart"
         android:title="@string/shopping_cart_label"
         app:showAsAction="always"
         android:icon="@drawable/shopping_cart_empty">
 
     </item>
-
-    <item
-        android:id="@+id/app_bar_switch"
-        android:title=""
-        app:actionLayout="@layout/switch_item" />
     <item
         android:id="@+id/login_button"
         android:title="@string/login_button_label"
