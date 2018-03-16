@@ -40,4 +40,6 @@
     <string name="phone_not_valid">Enter correct phone number</string>
     <string name="passwords_do_not_match">Passwords do not match!</string>
 
+    <!-- For reservation -->
+    <string name="reservation_title">Here you can reserve a table</string>
 </resources>
