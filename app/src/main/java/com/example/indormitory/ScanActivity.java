@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
@@ -69,7 +70,7 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
             builder.setView(dialogView);
 
             Button goButton = dialogView.findViewById(R.id.go_button);
-            Button cancelButton = dialogView.findViewById(R.id.cancel_button);
+            ImageButton cancelButton = dialogView.findViewById(R.id.cancel_button);
             String[] splitResult = stringResult.split("uuid = ");
             final UUID uuid = UUID.fromString(splitResult[splitResult.length - 1]);
             final AlertDialog alertDialog = builder.create();
