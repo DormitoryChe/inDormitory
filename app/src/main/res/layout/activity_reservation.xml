@@ -33,15 +33,15 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/shopping_cart_empty"
-                    android:layout_marginEnd="20dp"
+                    android:padding="15dp"
                     tools:ignore="ContentDescription"/>
                 <ImageButton
                     android:id="@+id/toolbar_profile"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/profile"
-                    android:layout_marginEnd="15dp"
+                    android:padding="15dp"
                     tools:ignore="ContentDescription"/>
             </LinearLayout>
 
@@ -52,7 +52,9 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_weight="20"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -61,35 +63,104 @@
 
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center_horizontal"
                 >
 
+                <LinearLayout
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:id="@+id/button_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_marginEnd="10dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/seat_free"/>
+
+                        <TextView
+                            android:textSize="15sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/free_seat_title"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_marginEnd="10dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/seat_reserved"/>
+
+                        <TextView
+                            android:textSize="15sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/reserved_seat_title"
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
+
+                        <ImageView
+                            android:layout_marginEnd="10dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/seat_busy"/>
+
+                        <TextView
+                            android:textSize="15sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/busy_seat_title"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <ImageView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/button_description"
                     android:id="@+id/coffee_map"
                     android:adjustViewBounds="true"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:src="@drawable/coffee_map"
                     />
-
-                <TextView
-                    android:id="@+id/greeting_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Here you can reserve a table"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorMenuActive"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    />
-
-
-
 
                 <Button
                     app:layout_constraintStart_toStartOf="@id/coffee_map"
@@ -104,8 +175,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="145dp"
                     android:layout_marginStart="50dp"
@@ -116,8 +187,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="180dp"
                     android:layout_marginStart="50dp"
@@ -128,8 +199,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="215dp"
                     android:layout_marginStart="50dp"
@@ -140,8 +211,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="270dp"
                     android:layout_marginStart="28dp"
@@ -152,8 +223,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="375dp"
                     android:layout_marginStart="28dp"
@@ -164,8 +235,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="470dp"
                     android:layout_marginStart="28dp"
@@ -176,8 +247,8 @@
                     />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="575dp"
                     android:layout_marginStart="28dp"
@@ -187,8 +258,8 @@
                     android:background="@drawable/seat_free"
                     />
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/coffee_map"
+                    app:layout_constraintTop_toTopOf="@id/coffee_map"
 
                     android:layout_marginTop="670dp"
                     android:layout_marginStart="28dp"

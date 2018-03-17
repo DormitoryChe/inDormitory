@@ -56,13 +56,6 @@ public class ShoppingCartActivity extends BaseActivity {
                 startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
             }
         });
-        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShoppingCartActivity.this, ShoppingCartActivity.class));
-            }
-        });
         mDishes = Basket.get(getApplicationContext()).getDishes();
         mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
         totalPrice = findViewById(R.id.total_price);
