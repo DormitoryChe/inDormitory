@@ -1,6 +1,8 @@
 package com.example.indormitory;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -74,6 +76,7 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
             String[] splitResult = stringResult.split("uuid = ");
             final UUID uuid = UUID.fromString(splitResult[splitResult.length - 1]);
             final AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
             goButton.setOnClickListener(new View.OnClickListener() {
                 @Override
