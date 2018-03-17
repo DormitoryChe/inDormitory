@@ -1,56 +1,62 @@
 package com.example.indormitory;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.TabHost;
 
-import com.example.indormitory.models.News;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewsActivity extends BaseActivity {
-    private View mNewsContainer;
-    private RecyclerView mNewsRecyclerView;
-    private NewsAdapter mAdapter;
-    private List<News> mNewsList = new ArrayList<>();
+    private TabHost mTabHost;
+    private TabHost.TabSpec mTabSpec;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_news);
-
-        mNewsRecyclerView = findViewById(R.id.news_recycler_view);
-        mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         Fragment fragment = new Fragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.navigation_menu_fragment, fragment).commit();
-        for(int i = 0; i < 10; i ++)
-            // TODO normal string description
-            mNewsList.add(new News("News # " + i, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n" +
-                    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n" +
-                    "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n" +
-                    "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n" +
-                    "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n" +
-                    "proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Image path"));
-        configureAdapter();
+        mTabHost = findViewById(R.id.tabhost);
+        configureTab();
+
+        final ViewPager viewPager = findViewById(R.id.pager);
+        final NewsAndReviewsAdapter newsAndReviewsAdapter = new NewsAndReviewsAdapter(getSupportFragmentManager(), 2);
+        viewPager.setAdapter(newsAndReviewsAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.e("Basket", "on Selected");
+                if(position == 0)
+                    mTabHost.setCurrentTabByTag("tag1");
+                if(position == 1)
+                    mTabHost.setCurrentTabByTag("tag2");
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if(tabId.equals("tag1"))
+                    viewPager.setCurrentItem(0);
+                else
+                    viewPager.setCurrentItem(1);
+            }
+        });
 
         mProfileImageButton = findViewById(R.id.toolbar_profile);
         mProfileImageButton.setOnClickListener(new View.OnClickListener() {
@@ -66,107 +72,19 @@ public class NewsActivity extends BaseActivity {
                 startActivity(new Intent(NewsActivity.this, ShoppingCartActivity.class));
             }
         });
-        mNewsContainer = findViewById(R.id.news_container);
         mSearchView = findViewById(R.id.search);
         initializeSearch();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        mSearchView.setQuery("", false);
-        mNewsContainer.requestFocus();
-    }
-
-    private void configureAdapter() {
-        if (mAdapter == null) {
-            mAdapter = new NewsAdapter(mNewsList);
-            mNewsRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setNews(mNewsList);
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
-    private class NewsHolder extends RecyclerView.ViewHolder {
-        private TextView mTitleTextView;
-        private TextView mDescriptionTextView;
-        private ImageButton mMoreDescriptionButton;
-        private News mNews;
-
-        NewsHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_news, parent, false));
-
-            mTitleTextView = itemView.findViewById(R.id.news_title);
-            mDescriptionTextView = itemView.findViewById(R.id.news_description);
-            mMoreDescriptionButton = itemView.findViewById(R.id.news_more_button);
-        }
-
-        void bind(News news) {
-            mNews = news;
-            mTitleTextView.setText(mNews.getTitle());
-            mDescriptionTextView.setText(mNews.getDescription());
-
-            mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
-                boolean isMoreTextVisible = false;
-
-                ObjectAnimator animation = ObjectAnimator.ofInt(
-                        mDescriptionTextView,
-                        "maxLines",
-                        25);
-                ObjectAnimator animation1 = ObjectAnimator.ofInt(
-                        mDescriptionTextView,
-                        "maxLines",
-                        3);
-
-                @Override
-                public void onClick(View v) {
-                   animation.setDuration(1000);
-                   animation1.setDuration(1000);
-                    Log.e("BaseActivity", "Start delay = " + animation.getStartDelay() );
-
-                    if (isMoreTextVisible) {
-                        animation1.start();
-                        mMoreDescriptionButton.setImageResource(R.drawable.arrow_down);
-                    } else {
-                        animation.start();
-                        mMoreDescriptionButton.setImageResource(R.drawable.arrow_up);
-                    }
-
-                    isMoreTextVisible = !isMoreTextVisible;
-                }
-            });
-        }
-    }
-
-    private class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
-        private List<News> mNewsList;
-
-        NewsAdapter(List<News> newsList) {
-            mNewsList = newsList;
-        }
-
-        @NonNull
-        @Override
-        public NewsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(NewsActivity.this);
-            return new NewsHolder(layoutInflater, parent);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull NewsHolder holder, int position) {
-            News news = mNewsList.get(position);
-            holder.bind(news);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mNewsList.size();
-        }
-
-        void setNews(List<News> newsList) {
-            mNewsList = newsList;
-        }
+    private void configureTab() {
+        mTabHost.setup();
+        mTabSpec = mTabHost.newTabSpec("tag1");
+        mTabSpec.setIndicator("News");
+        mTabSpec.setContent(R.id.news_recycler_view);
+        mTabHost.addTab(mTabSpec);
+        mTabSpec = mTabHost.newTabSpec("tag2");
+        mTabSpec.setIndicator("Reviews");
+        mTabSpec.setContent(R.id.reviews_recycler_view);
+        mTabHost.addTab(mTabSpec);
     }
 }
