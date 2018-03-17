@@ -34,12 +34,14 @@ public class ShoppingCartActivity extends BaseActivity {
     private Map<Dish, Integer> mDishes;
     private TextView totalPrice;
     private ScrollView mScrollView;
+    private LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
         mScrollView = findViewById(R.id.shopping_cart_scroll_view);
+        mLinearLayout = findViewById(R.id.scroll_view_wrapper);
         mBackImageView = findViewById(R.id.toolbar_back);
         mBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +163,7 @@ public class ShoppingCartActivity extends BaseActivity {
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(), mDishesMap.size());
                     totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                    getItemCount();
                 }
             });
         }
@@ -168,14 +171,20 @@ public class ShoppingCartActivity extends BaseActivity {
         @Override
         public int getItemCount() {
             if(mDishesMap.size() == 0){
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                params.gravity = Gravity.CENTER;
-                TextView textView = new TextView(getApplicationContext());
-                textView.setText("There is nothing");
-                textView.setTextColor(getResources().getColor(R.color.colorMenuActive));
-                textView.setLayoutParams(params);
-                mScrollView.removeAllViews();
-                mScrollView.addView(textView);
+                LayoutInflater inflater = (ShoppingCartActivity.this).getLayoutInflater();
+                View view = inflater.inflate(R.layout.empty_shopping_cart, null);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                layoutParams.gravity = Gravity.CENTER;
+                view.setLayoutParams(layoutParams);
+                mLinearLayout.removeAllViews();
+                mLinearLayout.addView(view);
+                TextView mGoBackToMenuTextView = view.findViewById(R.id.empty_go_back);
+                mGoBackToMenuTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                    }
+                });
             }
             return mDishesMap.size();
         }

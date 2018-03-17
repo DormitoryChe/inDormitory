@@ -1,13 +1,17 @@
 package com.example.indormitory;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.zxing.Result;
 
@@ -68,10 +72,11 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
             builder.setView(dialogView);
 
             Button goButton = dialogView.findViewById(R.id.go_button);
-            Button cancelButton = dialogView.findViewById(R.id.cancel_button);
+            ImageButton cancelButton = dialogView.findViewById(R.id.cancel_button);
             String[] splitResult = stringResult.split("uuid = ");
             final UUID uuid = UUID.fromString(splitResult[splitResult.length - 1]);
             final AlertDialog alertDialog = builder.create();
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
             goButton.setOnClickListener(new View.OnClickListener() {
                 @Override

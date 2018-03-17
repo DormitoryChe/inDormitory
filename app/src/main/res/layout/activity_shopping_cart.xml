@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/shopping_cart_linear_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,74 +59,83 @@
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-    <ScrollView
-        android:id="@+id/shopping_cart_scroll_view"
+    <LinearLayout
+        android:id="@+id/scroll_view_wrapper"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"
-        android:background="#f5f5f5">
-        <android.support.constraint.ConstraintLayout
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/shopping_cart_scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="10dp"
-                android:id="@+id/shopping_cart_recycler_view"
+            android:layout_height="wrap_content"
+            android:background="#f5f5f5">
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <LinearLayout
-                app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="vertical"
-                android:paddingBottom="20dp"
-                >
-
-                <TextView
-                    android:id="@+id/total_price"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/shopping_cart_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total"
-                    android:background="#FFFFFF"
-                    android:textAlignment="textEnd"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="110dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toStartOf="@id/submit_shopping_cart"
-                    app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:background="@drawable/end_chack"
-                    />
+                </android.support.v7.widget.RecyclerView>
 
-                <Button
-                    android:id="@+id/submit_shopping_cart"
+                <LinearLayout
+                    app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="buy"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="#FFFFFF"
-                    android:background="@drawable/button_buy_green"
-                    />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    >
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total"
+                        android:background="#FFFFFF"
+                        android:textAlignment="textEnd"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="110dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toStartOf="@id/submit_shopping_cart"
+                        app:layout_constraintTop_toBottomOf="@id/shopping_cart_recycler_view"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="86dp"
+                        android:background="@drawable/end_chack"
+                        />
+
+                    <Button
+                        android:id="@+id/submit_shopping_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/buy_button"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/button_buy_green"
+                        />
+
+                </LinearLayout>
 
             </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+        </ScrollView>
+
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

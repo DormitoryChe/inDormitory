@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
-                    android:text="Here you can reserve a table"
+                    android:text="@string/reserve_title"
                     android:textAlignment="center"
                     android:textColor="@color/colorMenuActive"
                     android:textSize="26sp"

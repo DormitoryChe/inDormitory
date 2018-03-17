@@ -2,8 +2,21 @@
 
     <string name="app_name">In dormitory</string>
 
+    <!--For Qr code button-->
+    <string name="go_button">GO</string>
+
     <!--For shopping cart -->
     <string name="shopping_cart_label">Shopping cart</string>
+    <string name="empty_cart">Your cart is empty.</string>
+    <string name="empty_go_back"> <u> Please buy smth. </u> </string>
+    <string name="buy_button">BUY</string>
+
+    <!--For add button-->
+    <string name="add_button">add</string>
+
+    <!--For activity item menu-->
+    <string name="ingredients_title">Ingredients</string>
+    <string name="method_of_cooking_title">Method of cooking</string>
 
     <!--For login -->
     <string name="login_title">Login</string>
@@ -21,6 +34,9 @@
     <string name="register_button_label">Sign up</string>
     <string name="register_privacy_policy">Privacy Policy</string>
     <string name="register_email">email</string>
+
+    <!--For register-->
+    <string name="reserve_title">Here you can reserve a table</string>
 
     <!-- For navigation menu -->
     <string name="reservation">Reservation</string>

@@ -7,7 +7,8 @@
                 android:radius="5dp"
                 />
             <solid
-                android:color="#FFFFFF"
+                android:color="#f5f5f5"
+
                 />
             <padding
                 android:left="0dp"
@@ -16,13 +17,9 @@
                 android:bottom="0dp"
                 />
 
-            <stroke
-                android:width="2dp"
-                android:color="#FFC724"
-                />
-
         </shape>
     </item>
 
-</layer-list>
 
+
+</layer-list>
