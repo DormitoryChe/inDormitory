@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -22,6 +23,7 @@ import java.util.List;
  */
 
 public class MenuActivity extends BaseActivity {
+    private View mMenuContainer;
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
     private String[] items = {"Алкоголь", "Булочки", "М'ясні страви", "Більше алкоголю"};
@@ -45,20 +47,33 @@ public class MenuActivity extends BaseActivity {
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setClipToPadding(false);
-        mProfileImageView = findViewById(R.id.toolbar_profile);
-        mProfileImageView.setOnClickListener(new View.OnClickListener() {
+
+        mProfileImageButton = findViewById(R.id.toolbar_profile);
+        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, LoginActivity.class));
             }
         });
-        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
+        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, ShoppingCartActivity.class));
             }
         });
+
+        mMenuContainer = findViewById(R.id.menu_container);
+        mSearchView = findViewById(R.id.search);
+        initializeSearch();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSearchView.setQuery("", false);
+        mMenuContainer.requestFocus();
     }
 
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {

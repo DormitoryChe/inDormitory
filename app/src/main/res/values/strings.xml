@@ -58,4 +58,7 @@
 
     <!-- For reservation -->
     <string name="reservation_title">Here you can reserve a table</string>
+
+    <!-- For scan -->
+    <string name="nothing_to_show">Nothing to show</string>
 </resources>

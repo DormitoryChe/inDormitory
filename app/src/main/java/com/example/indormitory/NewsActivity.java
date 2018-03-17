@@ -2,12 +2,14 @@ package com.example.indormitory;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsActivity extends BaseActivity {
+    private View mNewsContainer;
     private RecyclerView mNewsRecyclerView;
     private NewsAdapter mAdapter;
     private List<News> mNewsList = new ArrayList<>();
@@ -32,23 +35,10 @@ public class NewsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        DataBindingUtil.setContentView(this, R.layout.activity_news);
+        setContentView(R.layout.activity_news);
+
         mNewsRecyclerView = findViewById(R.id.news_recycler_view);
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mProfileImageView = findViewById(R.id.toolbar_profile);
-        mProfileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NewsActivity.this, LoginActivity.class));
-            }
-        });
-        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NewsActivity.this, ShoppingCartActivity.class));
-            }
-        });
         Fragment fragment = new Fragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.navigation_menu_fragment, fragment).commit();
@@ -61,6 +51,32 @@ public class NewsActivity extends BaseActivity {
                     "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n" +
                     "proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Image path"));
         configureAdapter();
+
+        mProfileImageButton = findViewById(R.id.toolbar_profile);
+        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsActivity.this, LoginActivity.class));
+            }
+        });
+        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewsActivity.this, ShoppingCartActivity.class));
+            }
+        });
+        mNewsContainer = findViewById(R.id.news_container);
+        mSearchView = findViewById(R.id.search);
+        initializeSearch();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mSearchView.setQuery("", false);
+        mNewsContainer.requestFocus();
     }
 
     private void configureAdapter() {

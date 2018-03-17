@@ -1,7 +1,5 @@
 package com.example.indormitory.models;
 
-import android.content.Context;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
