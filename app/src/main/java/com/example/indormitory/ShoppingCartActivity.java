@@ -47,20 +47,6 @@ public class ShoppingCartActivity extends BaseActivity {
                 finish();
             }
         });
-        mProfileImageView = findViewById(R.id.toolbar_profile);
-        mProfileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
-            }
-        });
-        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShoppingCartActivity.this, ShoppingCartActivity.class));
-            }
-        });
         mDishes = Basket.get(getApplicationContext()).getDishes();
         mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
         totalPrice = findViewById(R.id.total_price);

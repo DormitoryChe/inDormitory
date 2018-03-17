@@ -3,6 +3,7 @@ package com.example.indormitory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,20 +37,20 @@ public class ItemMenuActivity extends BaseActivity {
                 finish();
             }
         });
-        mProfileImageView = findViewById(R.id.toolbar_profile);
-        mProfileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
-            }
-        });
-        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ItemMenuActivity.this, ShoppingCartActivity.class));
-            }
-        });
+//        mProfileImageView = findViewById(R.id.toolbar_profile);
+//        mProfileImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
+//            }
+//        });
+//        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
+//        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(ItemMenuActivity.this, ShoppingCartActivity.class));
+//            }
+//        });
 
         uuid_extra = (UUID)getIntent().getSerializableExtra(UUID_EXTRA);
         mDish = AllDishes.get().getDish(uuid_extra);

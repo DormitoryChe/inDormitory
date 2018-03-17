@@ -2,9 +2,12 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/news_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
+
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?android:actionBarSize"
@@ -14,32 +17,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="fill_vertical">
-                <EditText
+                <android.support.v7.widget.SearchView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/search"
                     android:hint="@string/search_hint"
-                    android:background="@android:color/transparent"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_alignParentEnd="true">
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/toolbar_shopping_cart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/shopping_cart_empty"
                         android:layout_marginEnd="20dp"
+                        android:background="@android:color/transparent"
                         tools:ignore="ContentDescription"/>
-                    <ImageView
+                    <ImageButton
                         android:id="@+id/toolbar_profile"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@drawable/profile"
                         android:layout_marginEnd="15dp"
+                        android:background="@android:color/transparent"
                         tools:ignore="ContentDescription"/>
                 </LinearLayout>
 
