@@ -23,6 +23,21 @@ public class ReservationActivity extends BaseActivity {
         setContentView(R.layout.activity_reservation);
         mSwipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
+        mProfileImageButton = findViewById(R.id.toolbar_profile);
+        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ReservationActivity.this, LoginActivity.class));
+            }
+        });
+        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ReservationActivity.this, ShoppingCartActivity.class));
+            }
+        });
+
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
