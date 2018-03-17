@@ -3,12 +3,15 @@ package com.example.indormitory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.indormitory.models.AllDishes;
+import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
 
 import java.util.UUID;
@@ -24,6 +27,10 @@ public class ItemMenuActivity extends BaseActivity {
     private Dish mDish;
     private TextView mDishNameTextView;
     private TextView mDishPriceTextView;
+    private ImageButton mDishMinusButton;
+    private ImageButton mDishPlusButton;
+    private Button mDishAddButton;
+    private TextView mDishCountTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,28 +44,54 @@ public class ItemMenuActivity extends BaseActivity {
                 finish();
             }
         });
-//        mProfileImageView = findViewById(R.id.toolbar_profile);
-//        mProfileImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
-//            }
-//        });
-//        mShoppingCartImageView = findViewById(R.id.toolbar_shopping_cart);
-//        mShoppingCartImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ItemMenuActivity.this, ShoppingCartActivity.class));
-//            }
-//        });
+        mProfileImageButton = findViewById(R.id.toolbar_profile);
+        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
+            }
+        });
+        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
+        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ItemMenuActivity.this, ShoppingCartActivity.class));
+            }
+        });
 
         uuid_extra = (UUID)getIntent().getSerializableExtra(UUID_EXTRA);
         mDish = AllDishes.get().getDish(uuid_extra);
 
         mDishNameTextView = findViewById(R.id.food_name);
         mDishPriceTextView = findViewById(R.id.dish_price);
+        mDishMinusButton = findViewById(R.id.dish_minus_button);
+        mDishPlusButton = findViewById(R.id.dish_plus_button);
+        mDishAddButton = findViewById(R.id.dish_add_button);
+        mDishCountTextView = findViewById(R.id.dish_count);
 
         mDishNameTextView.setText(mDish.getTitle());
         mDishPriceTextView.setText(String.valueOf(mDish.getPrice()));
+        mDishMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1)
+                    mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) - 1));
+            }
+        });
+        mDishPlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Integer.valueOf(mDishCountTextView.getText().toString()) < 10)
+                    mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
+            }
+        });
+        mDishAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Basket.get(getApplicationContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
+                Log.e("Basket", mDish.getUuid().toString());
+                mDishCountTextView.setText(String.valueOf(1));
+            }
+        });
     }
 }
