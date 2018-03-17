@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.indormitory.models.AllDishes;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class MenuItemFragment extends Fragment {
     static final String PAGE_ITEM = "page_item";
+    private static final String UUID_EXTRA = "uuid_extra";
     private static String[] items;
     private String mItem;
     private RecyclerView mMenuRecyclerView;
@@ -76,10 +78,11 @@ public class MenuItemFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    private class DishHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class DishHolder extends RecyclerView.ViewHolder {
         private TextView mTitleTextView;
         private TextView mPriceTextView;
         private Button mAddButton;
+        private ImageView mDishLogoImageView;
         private ImageButton mDishPlusButton;
         private ImageButton mDishMinusButton;
         private TextView mDishCountTextView;
@@ -88,7 +91,7 @@ public class MenuItemFragment extends Fragment {
         DishHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_food, parent, false));
 
-            itemView.setOnClickListener(this);
+            mDishLogoImageView = itemView.findViewById(R.id.dish_logo);
             mTitleTextView = itemView.findViewById(R.id.dish_title);
             mPriceTextView = itemView.findViewById(R.id.dish_price);
             mAddButton = itemView.findViewById(R.id.dish_add_button);
@@ -106,6 +109,7 @@ public class MenuItemFragment extends Fragment {
                 public void onClick(View v) {
                     Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
                     Log.e("Basket", mDish.getUuid().toString());
+                    mDishCountTextView.setText(String.valueOf(1));
                 }
             });
             mDishPlusButton.setOnClickListener(new View.OnClickListener() {
@@ -122,11 +126,14 @@ public class MenuItemFragment extends Fragment {
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) - 1));
                 }
             });
-        }
-
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(getContext(), ItemMenuActivity.class));
+            mDishLogoImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), ItemMenuActivity.class);
+                    intent.putExtra(UUID_EXTRA, mDish.getUuid());
+                    startActivity(intent);
+                }
+            });
         }
     }
 

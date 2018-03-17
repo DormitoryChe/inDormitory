@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.zxing.Result;
 
@@ -29,8 +30,8 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mScannerView = new ZXingScannerView(this);
-        setContentView(mScannerView);
+        setContentView(R.layout.activity_scan);
+        mScannerView = findViewById(R.id.scaner);
         builder = new AlertDialog.Builder(this);
         inflater = (this).getLayoutInflater();
         Log.e("QR", "on Create");
@@ -88,6 +89,9 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
                     onResume();
                 }
             });
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.nothing_to_show, Toast.LENGTH_SHORT).show();
+            onResume();
         }
     }
 
