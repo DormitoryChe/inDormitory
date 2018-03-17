@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
@@ -45,166 +46,148 @@
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_weight="20"
-        android:orientation="vertical">
+        android:layout_height="0dp">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-
-
+                android:layout_height="wrap_content" >
                 <TextView
-                    android:id="@+id/greeting_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
-                    android:text="@string/reserve_title"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorMenuActive"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    />
+                        android:id="@+id/greeting_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:text="@string/reservation_title"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorMenuActive"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 <ImageView
-                    android:id="@+id/coffee_map"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/coffee_map"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/greeting_text"
+                        android:id="@+id/coffee_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/coffee_map"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/greeting_text"
 
-                    tools:layout_editor_absoluteX="0dp" />
-
-                <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    android:layout_marginTop="139dp"
-                    android:layout_marginStart="45dp"
-
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/seat_free"
-                    />
+                        tools:layout_editor_absoluteX="0dp" />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
-                    android:layout_marginTop="179dp"
-                    android:layout_marginStart="45dp"
+                        android:layout_marginTop="139dp"
+                        android:layout_marginStart="45dp"
 
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/seat_free"
-                    />
-
-                <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    android:layout_marginTop="219dp"
-                    android:layout_marginStart="45dp"
-
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/seat_free"
-                    />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/seat_free" />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
-                    android:layout_marginTop="259dp"
-                    android:layout_marginStart="45dp"
+                        android:layout_marginTop="179dp"
+                        android:layout_marginStart="45dp"
 
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/seat_free"
-                    />
-
-                <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    android:layout_marginTop="312dp"
-                    android:layout_marginStart="30dp"
-
-                    android:layout_width="60dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/seat_free"
-                    />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/seat_free" />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
-                    android:layout_marginTop="417dp"
-                    android:layout_marginStart="30dp"
+                        android:layout_marginTop="219dp"
+                        android:layout_marginStart="45dp"
 
-                    android:layout_width="60dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/seat_free"
-                    />
-
-                <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-
-                    android:layout_marginTop="521dp"
-                    android:layout_marginStart="30dp"
-
-                    android:layout_width="60dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/seat_free"
-                    />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/seat_free" />
 
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
-                    android:layout_marginTop="655dp"
-                    android:layout_marginStart="60dp"
+                        android:layout_marginTop="259dp"
+                        android:layout_marginStart="45dp"
 
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/seat_free"
-                    />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/seat_free" />
+
                 <Button
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
-                    android:layout_marginTop="725dp"
-                    android:layout_marginStart="60dp"
+                        android:layout_marginTop="312dp"
+                        android:layout_marginStart="30dp"
 
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/seat_free"
-                    />
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/seat_free" />
 
-            </android.support.constraint.ConstraintLayout>
+                <Button
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        android:layout_marginTop="417dp"
+                        android:layout_marginStart="30dp"
+
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/seat_free" />
+
+                <Button
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        android:layout_marginTop="521dp"
+                        android:layout_marginStart="30dp"
+
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/seat_free" />
+
+                <Button
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        android:layout_marginTop="655dp"
+                        android:layout_marginStart="60dp"
+
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/seat_free" />
+                <Button
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        android:layout_marginTop="725dp"
+                        android:layout_marginStart="60dp"
+
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/seat_free" />
+
+                </android.support.constraint.ConstraintLayout>
 
 
-        </ScrollView>
-
-
-    </LinearLayout>
-
+            </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
