@@ -48,5 +48,7 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity android:name=".ShoppingCartActivity" />
+        <activity android:name=".ReserveTableActivity" />
+        <activity android:name=".BuyAtTimeActivity" />
     </application>
 </manifest>

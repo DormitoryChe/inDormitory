@@ -10,6 +10,9 @@
     <string name="empty_cart">Your cart is empty.</string>
     <string name="empty_go_back"> <u> Please buy smth. </u> </string>
     <string name="buy_button">BUY</string>
+    <string name="buy_at_time_button">buy at time</string>
+    <string name="under_button_hint">you can reserve a table </string>
+    <string name="Under_button_redirect"> <u> here </u> </string>
 
     <!--For add button-->
     <string name="add_button">add</string>
@@ -39,6 +42,12 @@
     <string name="free_seat_title">free seat</string>
     <string name="reserved_seat_title">reserved seat</string>
     <string name="busy_seat_title">busy seat</string>
+    <string name="reserve_at">Reserved at</string>
+    <string name="reserve_alert_hint">you can reserve it before this time or after 3 hours</string>
+    <string name="reserve_button">reserve</string>
+    <string name="reserve_hint">pay for reservation</string>
+    <string name="reserve_and_buy_button">reserve and buy</string>
+    <string name="reserve_buy_hint">reserve table and buy smth</string>
 
 
     <!-- For navigation menu -->

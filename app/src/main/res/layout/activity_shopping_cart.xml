@@ -112,19 +112,69 @@
                         android:background="@drawable/end_chack"
                         />
 
+
+
                     <Button
                         android:id="@+id/submit_shopping_cart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/buy_button"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:textColor="#FFFFFF"
                         android:background="@drawable/button_buy_green"
                         />
+
+                    <Button
+                        android:id="@+id/submit_shopping_cart_at_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/buy_at_time_button"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/modal_window_background_reserved_table"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="-2dp"
+                            android:text="*"
+                            android:textColor="#f45f5f" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/under_button_hint"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/go_to_reservation"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Under_button_redirect"
+                            android:textSize="20sp"
+                            android:paddingStart="5dp"
+                            android:textColor="@color/colorMenuActive"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

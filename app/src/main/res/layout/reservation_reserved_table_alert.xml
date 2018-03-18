@@ -55,7 +55,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reserved at"
+                android:text="@string/reserve_at"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#f5f5f5"
@@ -75,10 +75,10 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/reserve_one_button"
+            android:id="@+id/reserve_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="reserve"
+            android:text="@string/reserve_button"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="#FFC724"
@@ -104,83 +104,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="pay for reservation"
+                android:text="@string/reserve_alert_hint"
                 android:textSize="10sp"
                 />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/reserve_one_more_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="reserve one more"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#FFC724"
-            android:background="@drawable/modal_window_background"
-
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="-2dp"
-                android:text="*"
-                android:textColor="#f45f5f" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="reserve one more table"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/reserve_and_buy_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="reserve and buy"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#FFC724"
-            android:background="@drawable/modal_window_background"
-
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="-2dp"
-                android:text="*"
-                android:textColor="#f45f5f" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="reserve table and buy smth"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-
 
     </LinearLayout>
 

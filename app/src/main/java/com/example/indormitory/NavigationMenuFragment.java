@@ -48,7 +48,7 @@ public class NavigationMenuFragment extends Fragment {
 
         if (getActivity() instanceof MenuActivity || getActivity() instanceof ItemMenuActivity || getActivity() instanceof ShoppingCartActivity)
             configureNavigationMenuForBuy();
-        else if (getActivity() instanceof ReservationActivity)
+        else if (getActivity() instanceof ReservationActivity || getActivity() instanceof ReserveTableActivity)
             configureNavigationMenuForReservation();
         else if (getActivity() instanceof NewsActivity)
             configureNavigationMenuForNews();

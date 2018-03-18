@@ -1,7 +1,10 @@
 package com.example.indormitory;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+
+import java.util.Arrays;
 
 
 /**
@@ -146,42 +152,89 @@ public class ReservationActivity extends BaseActivity {
     }
 
     private void showAlertDialogByButtonState(Button button) {
-        Drawable currentDrawable = button.getBackground();
-        Drawable freeDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.seat_free);
-        Drawable reservedDrawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.seat_reserved);
+        Drawable drawable = button.getBackground();
+        drawable = drawable.getConstantState().newDrawable().mutate();
+        Bitmap currentBitmap = drawableToBitmap(drawable);
+        currentBitmap = currentBitmap.copy(currentBitmap.getConfig(), false);
+        Bitmap freeBitmap = drawableToBitmap(ContextCompat.getDrawable(getApplicationContext(), R.drawable.seat_free));
+        Bitmap reservedBitmap = drawableToBitmap(ContextCompat.getDrawable(getApplicationContext(), R.drawable.seat_reserved));
         View dialogView;
-        ImageButton cancelButton;
-        if(currentDrawable.getConstantState().equals(freeDrawable.getConstantState())) {
-            dialogView = inflater.inflate(R.layout.reservation_free_table_alert, null);
-            alertBuilder.setTitle(null);
-            alertBuilder.setCancelable(true);
-            alertBuilder.setView(dialogView);
-            alertDialog = alertBuilder.create();
-            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            alertDialog.show();
-        } else if (currentDrawable.getConstantState().equals(reservedDrawable.getConstantState())) {
+
+        if(compare(currentBitmap, freeBitmap)) {
+            Log.e("Basket", "Free");
+            startActivity(new Intent(ReservationActivity.this, ReserveTableActivity.class));
+        } else if (compare(currentBitmap, reservedBitmap)) {
             dialogView = inflater.inflate(R.layout.reservation_reserved_table_alert, null);
             alertBuilder.setTitle(null);
             alertBuilder.setCancelable(true);
             alertBuilder.setView(dialogView);
             alertDialog = alertBuilder.create();
+            Log.e("Basket", "Reserved");
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
+            ImageButton cancelButton;
+            Button reserveButton;
+            cancelButton = dialogView.findViewById(R.id.cancel_button);
+            reserveButton = dialogView.findViewById(R.id.reserve_button);
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.hide();
+                }
+            });
+            reserveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.hide();
+                    startActivity(new Intent(ReservationActivity.this, ReserveTableActivity.class));
+                }
+            });
         } else {
             dialogView = inflater.inflate(R.layout.reservation_busy_table_alert, null);
             alertBuilder.setTitle(null);
+            Log.e("Basket", "Busy");
             alertBuilder.setCancelable(true);
             alertBuilder.setView(dialogView);
             alertDialog = alertBuilder.create();
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
+            ImageButton cancelButton;
+            cancelButton = dialogView.findViewById(R.id.cancel_button);
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.hide();
+                }
+            });
         }
-        cancelButton = dialogView.findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.hide();
+    }
+    private static boolean compare(Bitmap b1, Bitmap b2) {
+        if (b1.getWidth() == b2.getWidth() && b1.getHeight() == b2.getHeight()) {
+            int[] pixels1 = new int[b1.getWidth() * b1.getHeight()];
+            int[] pixels2 = new int[b2.getWidth() * b2.getHeight()];
+            b1.getPixels(pixels1, 0, b1.getWidth(), 0, 0, b1.getWidth(), b1.getHeight());
+            b2.getPixels(pixels2, 0, b2.getWidth(), 0, 0, b2.getWidth(), b2.getHeight());
+            if (Arrays.equals(pixels1, pixels2)) {
+                return true;
+            } else {
+                return false;
             }
-        });
+        } else {
+            return false;
+        }
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }

@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,8 @@ public class ShoppingCartActivity extends BaseActivity {
     private TextView totalPrice;
     private ScrollView mScrollView;
     private LinearLayout mLinearLayout;
+    private Button mBuyAtTimeButton;
+    private TextView goToReservationTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +61,20 @@ public class ShoppingCartActivity extends BaseActivity {
         });
         mDishes = Basket.get(getApplicationContext()).getDishes();
         mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
+        mBuyAtTimeButton = findViewById(R.id.submit_shopping_cart_at_time);
+        mBuyAtTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShoppingCartActivity.this, BuyAtTimeActivity.class));
+            }
+        });
+        goToReservationTextView = findViewById(R.id.go_to_reservation);
+        goToReservationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShoppingCartActivity.this, ReservationActivity.class));
+            }
+        });
         totalPrice = findViewById(R.id.total_price);
         totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
         mMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
