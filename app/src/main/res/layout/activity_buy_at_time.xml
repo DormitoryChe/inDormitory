@@ -68,22 +68,6 @@
         android:layout_weight="20"
         android:orientation="vertical">
 
-        <LinearLayout
-
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TimePicker
-                android:timePickerMode="spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,13 +77,26 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <TimePicker
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="80dp"
+                android:addStatesFromChildren="false"
+                android:alwaysDrawnWithCache="false"
+                android:theme="@style/spinner"
+                android:timePickerMode="spinner" />
+
             <Button
                 android:id="@+id/buy_at_time_end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_buy_default"
-                android:textColor="@color/colorMenuActive"
                 android:text="@string/buy_button"
+                android:textColor="@color/colorMenuActive"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -126,13 +123,13 @@
 
                 <TextView
                     android:id="@+id/go_to_reservation"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Under_button_redirect"
-                    android:textSize="20sp"
                     android:paddingStart="5dp"
-                    android:textColor="@color/colorMenuActive"/>
+                    android:text="@string/Under_button_redirect"
+                    android:textColor="@color/colorMenuActive"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

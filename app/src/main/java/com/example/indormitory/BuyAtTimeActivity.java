@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 /**
  * Created by Jeckk on 18.03.2018.
@@ -14,6 +15,7 @@ import android.widget.TextView;
 public class BuyAtTimeActivity extends BaseActivity {
     private ImageView mBackImageView;
     private TextView goToReservationTextView;
+    private TimePicker timePicker;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,5 +50,7 @@ public class BuyAtTimeActivity extends BaseActivity {
                 startActivity(new Intent(BuyAtTimeActivity.this, ReservationActivity.class));
             }
         });
+        timePicker = findViewById(R.id.spinner);
+        timePicker.setIs24HourView(true);
     }
 }

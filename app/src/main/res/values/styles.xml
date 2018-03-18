@@ -20,4 +20,18 @@
         <item name="colorControlActivated">@color/colorMenuActive</item>
     </style>
 
+    <style name="spinner" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/colorMenuActive</item>
+        <item name="colorControlNormal">#ffe082</item>
+    </style>
+
+    <style name="spinner_white" parent="ThemeOverlay.AppCompat.Dark">
+
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">@color/colorMenuActive</item>
+        <item name="colorControlNormal">#ffe082</item>
+    </style>
+
 </resources>
