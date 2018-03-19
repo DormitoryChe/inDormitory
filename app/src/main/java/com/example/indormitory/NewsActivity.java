@@ -11,16 +11,23 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.WindowManager;
 import android.widget.TabHost;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class NewsActivity extends BaseActivity {
     private TabHost mTabHost;
     private TabHost.TabSpec mTabSpec;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_news);
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
         Fragment fragment = new Fragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.navigation_menu_fragment, fragment).commit();
@@ -62,7 +69,10 @@ public class NewsActivity extends BaseActivity {
         mProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NewsActivity.this, LoginActivity.class));
+                if(mCurrentUser == null) {
+                    startActivity(new Intent(NewsActivity.this, LoginActivity.class));
+                } else
+                    startActivity(new Intent(NewsActivity.this, ProfileActivity.class));
             }
         });
         mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);

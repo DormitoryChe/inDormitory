@@ -1,11 +1,15 @@
 package com.example.indormitory;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +18,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,19 +36,27 @@ import java.util.Map;
 public class ShoppingCartActivity extends BaseActivity {
     private RecyclerView mMenuRecyclerView;
     private MenuAdapter mAdapter;
-    ImageView mBackImageView;
+    private ImageView mBackImageView;
     private Map<Dish, Integer> mDishes;
     private TextView totalPrice;
-    private ScrollView mScrollView;
     private LinearLayout mLinearLayout;
     private Button mBuyAtTimeButton;
+    private Button mBuyButton;
     private TextView goToReservationTextView;
+    private FirebaseAuth mAuth;
+    FirebaseUser mCurrentUser;
+    private AlertDialog.Builder alertBuilder;
+    private AlertDialog alertDialog;
+    private LayoutInflater inflater;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
-        mScrollView = findViewById(R.id.shopping_cart_scroll_view);
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
+        inflater = (this).getLayoutInflater();
+        alertBuilder = new AlertDialog.Builder(this);
         mLinearLayout = findViewById(R.id.scroll_view_wrapper);
         mBackImageView = findViewById(R.id.toolbar_back);
         mBackImageView.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +69,10 @@ public class ShoppingCartActivity extends BaseActivity {
         mProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                if(mCurrentUser == null) {
+                    startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                } else
+                    startActivity(new Intent(ShoppingCartActivity.this, ProfileActivity.class));
             }
         });
         mDishes = Basket.get(getApplicationContext()).getDishes();
@@ -65,7 +81,67 @@ public class ShoppingCartActivity extends BaseActivity {
         mBuyAtTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShoppingCartActivity.this, BuyAtTimeActivity.class));
+                if(mCurrentUser == null) {
+                    View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
+                    alertBuilder.setTitle(null);
+                    Log.e("Basket", "Busy");
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setView(dialogView);
+                    alertDialog = alertBuilder.create();
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.show();
+                    ImageButton cancelButton;
+                    cancelButton = dialogView.findViewById(R.id.cancel_button);
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.hide();
+                        }
+                    });
+                    Button signInButton;
+                    signInButton = dialogView.findViewById(R.id.sign_in_button);
+                    signInButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                        }
+                    });
+                }
+                else {
+                    startActivity(new Intent(ShoppingCartActivity.this, BuyAtTimeActivity.class));
+                }
+            }
+        });
+        mBuyButton = findViewById(R.id.submit_shopping_cart);
+        mBuyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCurrentUser == null) {
+                    View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
+                    alertBuilder.setTitle(null);
+                    Log.e("Basket", "Busy");
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setView(dialogView);
+                    alertDialog = alertBuilder.create();
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    alertDialog.show();
+                    ImageButton cancelButton;
+                    cancelButton = dialogView.findViewById(R.id.cancel_button);
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.hide();
+                        }
+                    });
+                    Button signInButton;
+                    signInButton = dialogView.findViewById(R.id.sign_in_button);
+                    signInButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                        }
+                    });
+                }
             }
         });
         goToReservationTextView = findViewById(R.id.go_to_reservation);

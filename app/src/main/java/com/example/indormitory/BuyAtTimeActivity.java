@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 /**
  * Created by Jeckk on 18.03.2018.
  */
@@ -16,12 +19,14 @@ public class BuyAtTimeActivity extends BaseActivity {
     private ImageView mBackImageView;
     private TextView goToReservationTextView;
     private TimePicker timePicker;
-
+    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_at_time);
-
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
         mBackImageView = findViewById(R.id.toolbar_back);
         mBackImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +38,10 @@ public class BuyAtTimeActivity extends BaseActivity {
         mProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BuyAtTimeActivity.this, LoginActivity.class));
+                if(mCurrentUser == null) {
+                    startActivity(new Intent(BuyAtTimeActivity.this, LoginActivity.class));
+                } else
+                    startActivity(new Intent(BuyAtTimeActivity.this, ProfileActivity.class));
             }
         });
         mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
