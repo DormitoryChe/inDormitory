@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,7 +74,7 @@ public class ReserveTableActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
-                    View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
+                    /*View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
                     alertBuilder.setTitle(null);
                     Log.e("Basket", "Busy");
                     alertBuilder.setCancelable(true);
@@ -96,7 +97,9 @@ public class ReserveTableActivity extends BaseActivity {
                         public void onClick(View v) {
                             startActivity(new Intent(ReserveTableActivity.this, LoginActivity.class));
                         }
-                    });
+                    });*/
+                    Toast.makeText(ReserveTableActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ReserveTableActivity.this, LoginActivity.class));
                 } else
                     startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             }
@@ -107,7 +110,7 @@ public class ReserveTableActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
-                    View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
+                    /*View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
                     alertBuilder.setTitle(null);
                     Log.e("Basket", "Busy");
                     alertBuilder.setCancelable(true);
@@ -131,7 +134,9 @@ public class ReserveTableActivity extends BaseActivity {
                         public void onClick(View v) {
                             startActivity(new Intent(ReserveTableActivity.this, LoginActivity.class));
                         }
-                    });
+                    });*/
+                    Toast.makeText(ReserveTableActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ReserveTableActivity.this, LoginActivity.class));
                 }
             }
         });

@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
@@ -82,7 +83,7 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
-                    View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
+                    /*View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
                     alertBuilder.setTitle(null);
                     Log.e("Basket", "Busy");
                     alertBuilder.setCancelable(true);
@@ -105,7 +106,9 @@ public class ShoppingCartActivity extends BaseActivity {
                         public void onClick(View v) {
                             startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
                         }
-                    });
+                    });*/
+                    Toast.makeText(ShoppingCartActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
                 }
                 else {
                     startActivity(new Intent(ShoppingCartActivity.this, BuyAtTimeActivity.class));
@@ -117,7 +120,7 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
-                    View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
+                    /*View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
                     alertBuilder.setTitle(null);
                     Log.e("Basket", "Busy");
                     alertBuilder.setCancelable(true);
@@ -140,7 +143,9 @@ public class ShoppingCartActivity extends BaseActivity {
                         public void onClick(View v) {
                             startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
                         }
-                    });
+                    });*/
+                    Toast.makeText(ShoppingCartActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
                 }
             }
         });
