@@ -70,31 +70,40 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <ImageView
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="292dp"
+                android:layout_height="match_parent"
                 android:src="@drawable/table"
                 android:scaleType="centerCrop"
                 />
 
-
-            <TimePicker
-                android:background="#40000000"
+            <View
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
-                android:id="@+id/spinner"
                 android:layout_width="match_parent"
-                android:layout_height="292dp"
-                android:paddingTop="40dp"
-                android:paddingBottom="40dp"
+                android:layout_height="match_parent"
+                android:background="#40000000">
+
+            </View>
+
+            <TimePicker
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleY="1.5"
+                android:scaleX="1.5"
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:theme="@style/spinner_white"
                 android:timePickerMode="spinner" />
 
@@ -105,7 +114,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_marginEnd="12dp"
             android:layout_marginStart="12dp"
             android:gravity="center"
@@ -124,8 +134,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="6dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/reserve_hint"
-                    android:textSize="10sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -157,8 +170,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="6dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -173,7 +189,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/reserve_buy_hint"
-                    android:textSize="10sp" />
+                    android:textSize="16sp" />
+
             </LinearLayout>
 
         </LinearLayout>

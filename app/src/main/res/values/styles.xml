@@ -28,10 +28,36 @@
     </style>
 
     <style name="spinner_white" parent="ThemeOverlay.AppCompat.Dark">
-
         <item name="android:textSize">50sp</item>
         <item name="android:textColor">@color/colorMenuActive</item>
         <item name="colorControlNormal">#ffe082</item>
     </style>
+
+
+    <style name="Button_gray" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#e8e8e8</item>
+        <item name="colorButtonNormal">#f5f5f5</item>
+        <item name="android:textColor">@color/colorMenuActive</item>
+    </style>
+
+    <style name="Button_red" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#f45f5f</item>
+        <item name="colorButtonNormal">#f98484</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Button_green" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#85bf93</item>
+        <item name="colorButtonNormal">#9bdbaa</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Button_orange" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#e5b322</item>
+        <item name="colorButtonNormal">#FFC724</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
 
 </resources>

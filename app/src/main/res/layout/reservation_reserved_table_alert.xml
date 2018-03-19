@@ -77,12 +77,11 @@
         <Button
             android:id="@+id/reserve_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:text="@string/reserve_button"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#FFC724"
-            android:background="@drawable/modal_window_background"
+            android:theme="@style/Button_gray"
             />
 
         <LinearLayout
@@ -105,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reserve_alert_hint"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 />
 
         </LinearLayout>

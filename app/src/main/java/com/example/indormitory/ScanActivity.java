@@ -68,7 +68,6 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
             View dialogView = inflater.inflate(R.layout.qrcore_alert_dialog, null);
             builder.setTitle(null);
             builder.setCancelable(false);
-            builder.setIcon(R.drawable.search_icon);
             builder.setView(dialogView);
 
             Button goButton = dialogView.findViewById(R.id.go_button);

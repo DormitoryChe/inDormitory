@@ -48,6 +48,9 @@
     <string name="reserve_hint">pay for reservation</string>
     <string name="reserve_and_buy_button">reserve and buy</string>
     <string name="reserve_buy_hint">reserve table and buy smth</string>
+    <string name="busy_from">Busy from</string>
+    <string name="by">by</string>
+    <string name="busy_table_hint">please choose another table</string>
 
 
     <!-- For navigation menu -->
@@ -57,8 +60,10 @@
     <string name="buy">Menu</string>
     <string name="scan">Scan</string>
 
+
     <!-- For search -->
     <string name="search_hint">Search here…</string>
+
 
     <!-- Error messages -->
     <string name="empty_field_error">"This field cannot be blank !!!"</string>
@@ -68,9 +73,21 @@
     <string name="phone_not_valid">Enter correct phone number</string>
     <string name="passwords_do_not_match">Passwords do not match!</string>
 
-    <!-- For reservation -->
-    <string name="reservation_title">Here you can reserve a table</string>
 
     <!-- For scan -->
     <string name="nothing_to_show">Nothing to show</string>
+
+
+    <!-- For profile -->
+    <string name="table_number">table N</string>
+    <string name="current_order_button">current order</string>
+    <string name="change_reservation_button">change reservation</string>
+    <string name="orders_history_button">orders history</string>
+    <string name="settings_title">Settings</string>
+    <string name="mail_change_button">Change e-mail</string>
+    <string name="phone_change_button">Change phone number</string>
+    <string name="change_password_button">Change password</string>
+    <string name="logout_button">log out</string>
+
+
 </resources>
