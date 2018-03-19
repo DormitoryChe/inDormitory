@@ -74,7 +74,7 @@
             android:layout_height="20dp"
             android:layout_width="20dp"
             android:layout_gravity="center"
-            android:src="@drawable/news_active"
+            android:src="@drawable/news_not_active"
             tools:ignore="ContentDescription" />
         <TextView
             android:id="@+id/text_view_news"

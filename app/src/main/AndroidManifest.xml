@@ -50,5 +50,6 @@
         <activity android:name=".ShoppingCartActivity" />
         <activity android:name=".ReserveTableActivity" />
         <activity android:name=".BuyAtTimeActivity" />
+        <activity android:name=".ProfileActivity" />
     </application>
 </manifest>

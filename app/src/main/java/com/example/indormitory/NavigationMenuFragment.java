@@ -54,6 +54,8 @@ public class NavigationMenuFragment extends Fragment {
             configureNavigationMenuForNews();
         else if (getActivity() instanceof ScanActivity)
             configureNavigationMenuForScan();
+        else
+            configureNavigationMenuByDefault();
 
         reservationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,4 +156,14 @@ public class NavigationMenuFragment extends Fragment {
         scanTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
     }
 
+    public void configureNavigationMenuByDefault() {
+        reservationImageView.setImageResource(R.drawable.reservation_not_active);
+        reservationTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        newsImageView.setImageResource(R.drawable.news_not_active);
+        newsTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        buyImageView.setImageResource(R.drawable.food_not_active);
+        buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        scanImageView.setImageResource(R.drawable.qr_code_not_active);
+        scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+    }
 }

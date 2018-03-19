@@ -18,7 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
@@ -41,11 +43,15 @@ public class ReservationActivity extends BaseActivity {
     private AlertDialog.Builder alertBuilder;
     private AlertDialog alertDialog;
     private LayoutInflater inflater;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
         inflater = (this).getLayoutInflater();
         alertBuilder = new AlertDialog.Builder(this);
         mSwipeRefreshLayout = findViewById(R.id.swipe_refresh);
@@ -54,7 +60,10 @@ public class ReservationActivity extends BaseActivity {
         mProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ReservationActivity.this, LoginActivity.class));
+                if(mCurrentUser == null) {
+                    startActivity(new Intent(ReservationActivity.this, LoginActivity.class));
+                } else
+                    startActivity(new Intent(ReservationActivity.this, ProfileActivity.class));
             }
         });
         mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
@@ -214,14 +223,9 @@ public class ReservationActivity extends BaseActivity {
             int[] pixels2 = new int[b2.getWidth() * b2.getHeight()];
             b1.getPixels(pixels1, 0, b1.getWidth(), 0, 0, b1.getWidth(), b1.getHeight());
             b2.getPixels(pixels2, 0, b2.getWidth(), 0, 0, b2.getWidth(), b2.getHeight());
-            if (Arrays.equals(pixels1, pixels2)) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+            return Arrays.equals(pixels1, pixels2);
         }
+        return false;
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {

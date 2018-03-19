@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.UUID;
 
@@ -31,11 +33,15 @@ public class ItemMenuActivity extends BaseActivity {
     private ImageButton mDishPlusButton;
     private Button mDishAddButton;
     private TextView mDishCountTextView;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mCurrentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_menu);
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
 
         mBackImageView = findViewById(R.id.toolbar_back);
         mBackImageView.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +54,10 @@ public class ItemMenuActivity extends BaseActivity {
         mProfileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
+                if(mCurrentUser == null) {
+                    startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
+                } else
+                    startActivity(new Intent(ItemMenuActivity.this, ProfileActivity.class));
             }
         });
         mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
