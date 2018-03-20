@@ -7,8 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -30,15 +27,12 @@ import java.util.Map;
  * Created by Ростислав on 12.03.2018.
  */
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
     private TextView mRegisterName;
     private TextView mRegisterPhone;
     private TextView mRegisterEmail;
     private TextView mRegisterPassword;
     private TextView mRegisterPasswordVerify;
-    private Button mRegisterSubmitButton;
-    private ImageView mBackImageView;
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -46,22 +40,21 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mRegisterName = findViewById(R.id.register_name_input);
         mRegisterPhone = findViewById(R.id.register_phone_number_input);
         mRegisterEmail = findViewById(R.id.register_email_input);
         mRegisterPassword = findViewById(R.id.register_password_input);
         mRegisterPasswordVerify = findViewById(R.id.register_password_input_verify);
-        mRegisterSubmitButton = findViewById(R.id.register_submit_button);
-        mBackImageView = findViewById(R.id.toolbar_back);
-        mBackImageView.setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.toolbar_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
-        mRegisterSubmitButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.register_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean isRegisterSuccessful = true;

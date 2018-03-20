@@ -1,6 +1,7 @@
 package com.example.indormitory;
 
 import android.animation.ObjectAnimator;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,12 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.indormitory.models.AllNews;
 import com.example.indormitory.models.News;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ростислав on 17.03.2018.
@@ -25,33 +35,51 @@ import java.util.List;
 
 public class NewsFragment extends Fragment {
     private RecyclerView mNewsRecyclerView;
-    private List<News> mNewsList = new ArrayList<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private NewsAdapter mAdapter;
+    private AllNews allNews;
+    private ProgressBar progressBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news, null);
+        progressBar = view.findViewById(R.id.progressBar);
         mNewsRecyclerView = view.findViewById(R.id.news_recycler_view);
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        for(int i = 0; i < 10; i ++) {
-            mNewsList.add(new News("News # " + i, "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\n" +
-                    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\n" +
-                    "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\n" +
-                    "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\n" +
-                    "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\n" +
-                    "proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "Image path"));
+        allNews = AllNews.get();
+        if(allNews.getNewsList().size() == 0) {
+            WaitFetch waitFetch = new WaitFetch();
+            waitFetch.execute();
+        } else {
+            configureAdapter();
         }
-
-        configureAdapter();
         return view;
+    }
+
+    private void fetchNewsFromDatabase() {
+        db.collection("news").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for(DocumentSnapshot documentSnapshot : task.getResult()) {
+                        News news = new News(documentSnapshot.get("news_title").toString(), documentSnapshot.get("news_description").toString(),
+                                        documentSnapshot.get("news_image_path").toString(), documentSnapshot.get("news_date_begin").toString(),
+                                        documentSnapshot.get("news_date_end").toString());
+                        allNews.addNews(news);
+                    }
+                    configureAdapter();
+                }
+            }
+        });
     }
 
     private void configureAdapter() {
         if (mAdapter == null) {
-            mAdapter = new NewsAdapter(mNewsList);
+            mAdapter = new NewsAdapter(allNews.getNewsList());
             mNewsRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.setNews(mNewsList);
+            mAdapter.setNews(allNews.getNewsList());
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -59,22 +87,29 @@ public class NewsFragment extends Fragment {
     private class NewsHolder extends RecyclerView.ViewHolder {
         private TextView mTitleTextView;
         private TextView mDescriptionTextView;
+        private ImageView mNewsLogoImageView;
         private ImageButton mMoreDescriptionButton;
+        private TextView mNewsDateTextView;
         private News mNews;
 
         NewsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_news, parent, false));
 
             mTitleTextView = itemView.findViewById(R.id.news_title);
+            mNewsLogoImageView = itemView.findViewById(R.id.news_logo);
             mDescriptionTextView = itemView.findViewById(R.id.news_description);
             mMoreDescriptionButton = itemView.findViewById(R.id.news_more_button);
+            mNewsDateTextView = itemView.findViewById(R.id.news_date);
+
         }
 
         void bind(News news) {
             mNews = news;
             mTitleTextView.setText(mNews.getTitle());
+            Glide.with(NewsFragment.this).load(mNews.getImagePath()).into(mNewsLogoImageView);
+            mNewsLogoImageView.setVisibility(View.VISIBLE);
             mDescriptionTextView.setText(mNews.getDescription());
-
+            mNewsDateTextView.setText(mNews.getNewsDateBegin() + " - " + mNews.getNewsDateEnd());
             mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
                 boolean isMoreTextVisible = false;
 
@@ -134,6 +169,36 @@ public class NewsFragment extends Fragment {
 
         void setNews(List<News> newsList) {
             mNewsList = newsList;
+        }
+    }
+
+    class WaitFetch extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(false);
+            progressBar.setMax(1000);
+            mNewsRecyclerView.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            fetchNewsFromDatabase();
+            while (allNews.getNewsList().size() == 0)
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
+            mNewsRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 }

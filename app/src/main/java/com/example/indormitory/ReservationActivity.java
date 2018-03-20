@@ -19,9 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Arrays;
 
 
@@ -43,21 +40,17 @@ public class ReservationActivity extends BaseActivity {
     private AlertDialog.Builder alertBuilder;
     private AlertDialog alertDialog;
     private LayoutInflater inflater;
-    private FirebaseAuth mAuth;
-    private FirebaseUser mCurrentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentUser = mAuth.getCurrentUser();
+
         inflater = (this).getLayoutInflater();
         alertBuilder = new AlertDialog.Builder(this);
         mSwipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
-        mProfileImageButton = findViewById(R.id.toolbar_profile);
-        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
@@ -66,8 +59,7 @@ public class ReservationActivity extends BaseActivity {
                     startActivity(new Intent(ReservationActivity.this, ProfileActivity.class));
             }
         });
-        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ReservationActivity.this, ShoppingCartActivity.class));
@@ -87,10 +79,8 @@ public class ReservationActivity extends BaseActivity {
         mSwipeRefreshLayout.setOnChildScrollUpCallback(new SwipeRefreshLayout.OnChildScrollUpCallback() {
             @Override
             public boolean canChildScrollUp(@NonNull SwipeRefreshLayout parent, @Nullable View child) {
-                if (child != null)
-                    return child.canScrollVertically(-1);
+                return child != null && child.canScrollVertically(-1);
 
-                return false;
             }
         });
 
@@ -170,7 +160,6 @@ public class ReservationActivity extends BaseActivity {
         View dialogView;
 
         if(compare(currentBitmap, freeBitmap)) {
-            Log.e("Basket", "Free");
             startActivity(new Intent(ReservationActivity.this, ReserveTableActivity.class));
         } else if (compare(currentBitmap, reservedBitmap)) {
             dialogView = inflater.inflate(R.layout.reservation_reserved_table_alert, null);
@@ -178,7 +167,6 @@ public class ReservationActivity extends BaseActivity {
             alertBuilder.setCancelable(true);
             alertBuilder.setView(dialogView);
             alertDialog = alertBuilder.create();
-            Log.e("Basket", "Reserved");
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
             ImageButton cancelButton;
@@ -194,14 +182,12 @@ public class ReservationActivity extends BaseActivity {
             reserveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    alertDialog.hide();
                     startActivity(new Intent(ReservationActivity.this, ReserveTableActivity.class));
                 }
             });
         } else {
             dialogView = inflater.inflate(R.layout.reservation_busy_table_alert, null);
             alertBuilder.setTitle(null);
-            Log.e("Basket", "Busy");
             alertBuilder.setCancelable(true);
             alertBuilder.setView(dialogView);
             alertDialog = alertBuilder.create();

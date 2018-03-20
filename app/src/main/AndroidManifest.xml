@@ -51,5 +51,6 @@
         <activity android:name=".ReserveTableActivity" />
         <activity android:name=".BuyAtTimeActivity" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".BaseActivity" />
     </application>
 </manifest>

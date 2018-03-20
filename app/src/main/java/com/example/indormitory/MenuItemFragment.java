@@ -7,15 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
@@ -37,6 +35,7 @@ public class MenuItemFragment extends Fragment {
     private List<Dish> mDishesList = new ArrayList<>();
 
     static MenuItemFragment newInstance(int position) {
+
         MenuItemFragment menuItemFragment = new MenuItemFragment();
         items = AllDishes.get().getAllDishes().keySet().toArray(new String[AllDishes.get().getAllDishes().keySet().size()]);
         Bundle arguments = new Bundle();
@@ -66,13 +65,6 @@ public class MenuItemFragment extends Fragment {
     }
 
     private void configureAdapter() {
-        /*if (mAdapter == null) {
-            mAdapter = new MenuAdapter(mDishesList);
-            mMenuRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.setNews(mDishesList);
-            mAdapter.notifyDataSetChanged();
-        }*/
         mAdapter = new MenuAdapter(mDishesList);
         mMenuRecyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
@@ -81,10 +73,7 @@ public class MenuItemFragment extends Fragment {
     private class DishHolder extends RecyclerView.ViewHolder {
         private TextView mTitleTextView;
         private TextView mPriceTextView;
-        private Button mAddButton;
         private ImageView mDishLogoImageView;
-        private ImageButton mDishPlusButton;
-        private ImageButton mDishMinusButton;
         private TextView mDishCountTextView;
         private Dish mDish;
 
@@ -94,9 +83,6 @@ public class MenuItemFragment extends Fragment {
             mDishLogoImageView = itemView.findViewById(R.id.dish_logo);
             mTitleTextView = itemView.findViewById(R.id.dish_title);
             mPriceTextView = itemView.findViewById(R.id.dish_price);
-            mAddButton = itemView.findViewById(R.id.dish_add_button);
-            mDishPlusButton = itemView.findViewById(R.id.dish_plus_button);
-            mDishMinusButton = itemView.findViewById(R.id.dish_minus_button);
             mDishCountTextView = itemView.findViewById(R.id.dish_count);
         }
 
@@ -104,22 +90,24 @@ public class MenuItemFragment extends Fragment {
             mDish = dish;
             mTitleTextView.setText(mDish.getTitle());
             mPriceTextView.setText(String.valueOf(mDish.getPrice()));
-            mAddButton.setOnClickListener(new View.OnClickListener() {
+            Glide.with(MenuItemFragment.this).load(mDish.getImagePath()).into(mDishLogoImageView);
+            mDishLogoImageView.setVisibility(View.VISIBLE);
+
+            itemView.findViewById(R.id.dish_add_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
-                    Log.e("Basket", mDish.getUuid().toString());
                     mDishCountTextView.setText(String.valueOf(1));
                 }
             });
-            mDishPlusButton.setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.dish_plus_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) < 10)
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
                 }
             });
-            mDishMinusButton.setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.dish_plus_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1)
@@ -130,7 +118,7 @@ public class MenuItemFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), ItemMenuActivity.class);
-                    intent.putExtra(UUID_EXTRA, mDish.getUuid());
+                    intent.putExtra(UUID_EXTRA, mDish.getId());
                     startActivity(intent);
                 }
             });
@@ -160,12 +148,6 @@ public class MenuItemFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mDishesList.size();
-        }
-
-        void setDishes(List<Dish> dishesList) {
-            mDishesList.clear();
-            mDishesList.addAll(dishesList);
-            this.notifyItemRangeInserted(0, mDishesList.size() - 1);
         }
     }
 }

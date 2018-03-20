@@ -35,10 +35,10 @@ public class AllDishes {
         return mDishesMap.get(menuItem);
     }
 
-    public Dish getDish(UUID uuid) {
+    public Dish getDish(String id) {
         for(Map.Entry<String, List<Dish>> entry : mDishesMap.entrySet())
             for(Dish temp : entry.getValue())
-                if(temp.getUuid().equals(uuid))
+                if(temp.getId().equals(id))
                     return temp;
         return null;
     }

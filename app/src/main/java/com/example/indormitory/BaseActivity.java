@@ -2,26 +2,32 @@ package com.example.indormitory;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by vproh on 17.03.2018.
  */
 
 public class BaseActivity extends AppCompatActivity {
-    ImageButton mProfileImageButton;
-    ImageButton mShoppingCartImageButton;
     SearchView mSearchView;
+    FirebaseAuth mAuth;
+    FirebaseUser mCurrentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+        mCurrentUser = mAuth.getCurrentUser();
     }
 
     public void initializeSearch() {
@@ -46,9 +52,8 @@ public class BaseActivity extends AppCompatActivity {
                     isSearchActive = !isSearchActive;
                     if(isSearchActive)
                         visibility = View.VISIBLE;
-
-                    mProfileImageButton.setVisibility(visibility);
-                    mShoppingCartImageButton.setVisibility(visibility);
+                    findViewById(R.id.toolbar_profile).setVisibility(visibility);
+                    findViewById(R.id.toolbar_shopping_cart).setVisibility(visibility);
                 }
             });
         }

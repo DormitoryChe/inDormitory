@@ -11,27 +11,41 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.WindowManager;
 import android.widget.TabHost;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-
 public class NewsActivity extends BaseActivity {
     private TabHost mTabHost;
     private TabHost.TabSpec mTabSpec;
-    private FirebaseAuth mAuth;
-    private FirebaseUser mCurrentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_news);
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentUser = mAuth.getCurrentUser();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         Fragment fragment = new Fragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.navigation_menu_fragment, fragment).commit();
+
+        findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCurrentUser == null) {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                } else
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            }
+        });
+        findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ShoppingCartActivity.class));
+            }
+        });
         mTabHost = findViewById(R.id.tabhost);
+
+        mSearchView = findViewById(R.id.search);
+        initializeSearch();
+
         configureTab();
 
         final ViewPager viewPager = findViewById(R.id.pager);
@@ -64,26 +78,6 @@ public class NewsActivity extends BaseActivity {
                     viewPager.setCurrentItem(1);
             }
         });
-
-        mProfileImageButton = findViewById(R.id.toolbar_profile);
-        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    startActivity(new Intent(NewsActivity.this, LoginActivity.class));
-                } else
-                    startActivity(new Intent(NewsActivity.this, ProfileActivity.class));
-            }
-        });
-        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NewsActivity.this, ShoppingCartActivity.class));
-            }
-        });
-        mSearchView = findViewById(R.id.search);
-        initializeSearch();
     }
 
     private void configureTab() {
