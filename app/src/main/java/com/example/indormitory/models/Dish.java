@@ -1,31 +1,37 @@
 package com.example.indormitory.models;
 
-import java.util.List;
-import java.util.UUID;
+import android.graphics.drawable.Drawable;
+
+import java.util.ArrayList;
 
 /**
  * Created by Ростислав on 13.03.2018.
  */
 
 public class Dish {
-    private UUID uuid;
+    private String id;
     private String title;
     private double price;
     private String imagePath;
-    private List<String> ingredients;
-    private String methodOfCooking;
+    private ArrayList<String> ingredients;
+    private String description;
+    private double calories;
+    private double weight;
+    private Drawable image;
 
-    public Dish(String title, double price, String imagePath, List<String> ingredients, String methodOfCooking) {
-        uuid = UUID.randomUUID();
+    public Dish(String id, String title, double price, String imagePath, ArrayList<String> ingredients, String description, double weight, double calories) {
+        this.id = id;
         this.title = title;
         this.price = price;
         this.imagePath = imagePath;
         this.ingredients = ingredients;
-        this.methodOfCooking = methodOfCooking;
+        this.description = description;
+        this.calories = calories;
+        this.weight = weight;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -40,18 +46,26 @@ public class Dish {
         return imagePath;
     }
 
-    public List<String> getIngredients() {
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public String getMethodOfCooking() {
-        return methodOfCooking;
+    public String getDescription() {
+        return description;
+    }
+
+    public Drawable getImage() {
+        return image;
+    }
+
+    public void setImage(Drawable image) {
+        this.image = image;
     }
 
     @Override
     public String toString() {
         return "Dish " +
-                "uuid = " + uuid +
+                "id = " + id +
                 ", title = '" + title + '\'' +
                 ", price = " + price + '\n';
     }

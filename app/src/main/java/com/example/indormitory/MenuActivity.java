@@ -1,7 +1,9 @@
 package com.example.indormitory;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,14 +13,20 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Dish;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Jeckk on 12.03.2018.
@@ -28,34 +36,27 @@ public class MenuActivity extends BaseActivity {
     private View mMenuContainer;
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
-    private String[] items = {"Алкоголь", "Булочки", "М'ясні страви", "Більше алкоголю"};
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
+    private ProgressBar progressBar;
+    private AllDishes allDishes = AllDishes.get();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_menu);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mAuth = FirebaseAuth.getInstance();
         mCurrentUser = mAuth.getCurrentUser();
 
-        if(AllDishes.get().getAllDishes().size() == 0) {
-            for(String item : items) {
-                List<Dish> mDishesList = new ArrayList<>();
-                for(int i = 0; i < 5; i ++)
-                    mDishesList.add(new Dish("Olive", 50 + i, null, null, null));
-                AllDishes.get().addDishesByOneMenuItem(item, mDishesList);
-            }
-        }
-
+        progressBar = findViewById(R.id.progressBar);
         mViewPager = findViewById(R.id.menu_view_pager);
-        mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setClipToPadding(false);
+        mMenuContainer = findViewById(R.id.menu_container);
+        mSearchView = findViewById(R.id.search);
 
-        mProfileImageButton = findViewById(R.id.toolbar_profile);
-        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
@@ -64,18 +65,45 @@ public class MenuActivity extends BaseActivity {
                     startActivity(new Intent(MenuActivity.this, ProfileActivity.class));
             }
         });
-        mShoppingCartImageButton = findViewById(R.id.toolbar_shopping_cart);
-        mShoppingCartImageButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, ShoppingCartActivity.class));
             }
         });
-
-        mMenuContainer = findViewById(R.id.menu_container);
-        mSearchView = findViewById(R.id.search);
         initializeSearch();
 
+        mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setClipToPadding(false);
+        if(allDishes.getAllDishes().size() == 0) {
+            WaitFetch waitFetch = new WaitFetch();
+            waitFetch.execute();
+        }
+    }
+
+    private void fetchDishesFromDatabase() {
+        db.collection("salads").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for(DocumentSnapshot documentSnapshot : task.getResult()) {
+                        Dish dish = new Dish(documentSnapshot.getId(), documentSnapshot.get("name").toString(), Double.valueOf(documentSnapshot.get("price").toString()),
+                                            documentSnapshot.get("image_path").toString(), (ArrayList<String>)documentSnapshot.get("ingredients"),
+                                            documentSnapshot.get("information").toString(), Double.valueOf(documentSnapshot.get("weight").toString()),
+                                            Double.valueOf(documentSnapshot.get("calories").toString()));
+                        if(allDishes.getAllDishes().containsKey(documentSnapshot.get("type").toString())) {
+                            allDishes.getAllDishes().get(documentSnapshot.get("type").toString()).add(dish);
+
+                        } else {
+                            ArrayList<Dish> dishes = new ArrayList<>();
+                            dishes.add(dish);
+                            allDishes.getAllDishes().put(documentSnapshot.get("type").toString(), dishes);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -98,7 +126,40 @@ public class MenuActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return items.length;
+            return AllDishes.get().getAllDishes().keySet().size();
+        }
+    }
+
+    class WaitFetch extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(false);
+            progressBar.setMax(1000);
+            mViewPager.setVisibility(View.GONE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            fetchDishesFromDatabase();
+            while (AllDishes.get().getAllDishes().size() == 0)
+                try {
+                    TimeUnit.MILLISECONDS.sleep(30);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.e("Basket", allDishes.getAllDishes().toString());
+            progressBar.setVisibility(View.GONE);
+            mViewPager.setVisibility(View.VISIBLE);
+            mPagerAdapter.notifyDataSetChanged();
+
         }
     }
 }

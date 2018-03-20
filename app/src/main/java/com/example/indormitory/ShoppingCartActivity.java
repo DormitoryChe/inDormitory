@@ -1,30 +1,22 @@
 package com.example.indormitory;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,37 +29,25 @@ import java.util.Map;
 public class ShoppingCartActivity extends BaseActivity {
     private RecyclerView mMenuRecyclerView;
     private MenuAdapter mAdapter;
-    private ImageView mBackImageView;
     private Map<Dish, Integer> mDishes;
     private TextView totalPrice;
     private LinearLayout mLinearLayout;
-    private Button mBuyAtTimeButton;
-    private Button mBuyButton;
-    private TextView goToReservationTextView;
-    private FirebaseAuth mAuth;
-    FirebaseUser mCurrentUser;
-    private AlertDialog.Builder alertBuilder;
-    private AlertDialog alertDialog;
-    private LayoutInflater inflater;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentUser = mAuth.getCurrentUser();
-        inflater = (this).getLayoutInflater();
-        alertBuilder = new AlertDialog.Builder(this);
+
+        mDishes = Basket.get(getApplicationContext()).getDishes();
+        mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
         mLinearLayout = findViewById(R.id.scroll_view_wrapper);
-        mBackImageView = findViewById(R.id.toolbar_back);
-        mBackImageView.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        mProfileImageButton = findViewById(R.id.toolbar_profile);
-        mProfileImageButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
@@ -76,37 +56,10 @@ public class ShoppingCartActivity extends BaseActivity {
                     startActivity(new Intent(ShoppingCartActivity.this, ProfileActivity.class));
             }
         });
-        mDishes = Basket.get(getApplicationContext()).getDishes();
-        mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
-        mBuyAtTimeButton = findViewById(R.id.submit_shopping_cart_at_time);
-        mBuyAtTimeButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.submit_shopping_cart_at_time).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
-                    /*View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
-                    alertBuilder.setTitle(null);
-                    Log.e("Basket", "Busy");
-                    alertBuilder.setCancelable(true);
-                    alertBuilder.setView(dialogView);
-                    alertDialog = alertBuilder.create();
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    alertDialog.show();
-                    ImageButton cancelButton;
-                    cancelButton = dialogView.findViewById(R.id.cancel_button);
-                    cancelButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.hide();
-                        }
-                    });
-                    Button signInButton;
-                    signInButton = dialogView.findViewById(R.id.sign_in_button);
-                    signInButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
-                        }
-                    });*/
                     Toast.makeText(ShoppingCartActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
                 }
@@ -115,42 +68,16 @@ public class ShoppingCartActivity extends BaseActivity {
                 }
             }
         });
-        mBuyButton = findViewById(R.id.submit_shopping_cart);
-        mBuyButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.submit_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mCurrentUser == null) {
-                    /*View dialogView = inflater.inflate(R.layout.not_authorized_alert, null);
-                    alertBuilder.setTitle(null);
-                    Log.e("Basket", "Busy");
-                    alertBuilder.setCancelable(true);
-                    alertBuilder.setView(dialogView);
-                    alertDialog = alertBuilder.create();
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    alertDialog.show();
-                    ImageButton cancelButton;
-                    cancelButton = dialogView.findViewById(R.id.cancel_button);
-                    cancelButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            alertDialog.hide();
-                        }
-                    });
-                    Button signInButton;
-                    signInButton = dialogView.findViewById(R.id.sign_in_button);
-                    signInButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
-                        }
-                    });*/
                     Toast.makeText(ShoppingCartActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
                 }
             }
         });
-        goToReservationTextView = findViewById(R.id.go_to_reservation);
-        goToReservationTextView.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.go_to_reservation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShoppingCartActivity.this, ReservationActivity.class));
@@ -176,8 +103,6 @@ public class ShoppingCartActivity extends BaseActivity {
         private TextView mTitleTextView;
         private TextView mTotalPriceTextView;
         private TextView mOnePriceTextView;
-        private ImageButton mDishPlusButton;
-        private ImageButton mDishMinusButton;
         private TextView mDishCountTextView;
         private ImageButton mDeleteDishButton;
         private Dish mDish;
@@ -189,8 +114,6 @@ public class ShoppingCartActivity extends BaseActivity {
             mTitleTextView = itemView.findViewById(R.id.dish_title);
             mTotalPriceTextView = itemView.findViewById(R.id.total_price);
             mOnePriceTextView = itemView.findViewById(R.id.one_dish_price);
-            mDishPlusButton = itemView.findViewById(R.id.dish_plus_button);
-            mDishMinusButton = itemView.findViewById(R.id.dish_minus_button);
             mDishCountTextView = itemView.findViewById(R.id.dish_count);
             mDeleteDishButton = itemView.findViewById(R.id.delete_dish);
         }
@@ -202,7 +125,8 @@ public class ShoppingCartActivity extends BaseActivity {
             mTotalPriceTextView.setText(String.valueOf(mDish.getPrice()*mCount));
             mOnePriceTextView.setText(String.valueOf(mDish.getPrice()));
             mDishCountTextView.setText(String.valueOf(count));
-            mDishPlusButton.setOnClickListener(new View.OnClickListener() {
+
+            itemView.findViewById(R.id.dish_plus_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) < 50) {
@@ -213,7 +137,7 @@ public class ShoppingCartActivity extends BaseActivity {
                     }
                 }
             });
-            mDishMinusButton.setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.dish_minus_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1) {

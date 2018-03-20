@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 
-import java.util.UUID;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
@@ -37,7 +35,6 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
         mScannerView = findViewById(R.id.scaner);
         builder = new AlertDialog.Builder(this);
         inflater = (this).getLayoutInflater();
-        Log.e("QR", "on Create");
     }
 
     @Override
@@ -73,7 +70,7 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
             Button goButton = dialogView.findViewById(R.id.go_button);
             ImageButton cancelButton = dialogView.findViewById(R.id.cancel_button);
             String[] splitResult = stringResult.split("uuid = ");
-            final UUID uuid = UUID.fromString(splitResult[splitResult.length - 1]);
+            final String id = splitResult[splitResult.length - 1];
             final AlertDialog alertDialog = builder.create();
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
@@ -81,7 +78,7 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getApplicationContext(), ItemMenuActivity.class);
-                    intent.putExtra(UUID_EXTRA, uuid);
+                    intent.putExtra(UUID_EXTRA, id);
                     startActivity(intent);
                 }
             });

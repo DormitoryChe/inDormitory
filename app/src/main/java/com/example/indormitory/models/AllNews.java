@@ -32,4 +32,8 @@ public class AllNews {
                 return news;
         return null;
     }
+
+    public void addNews(News news) {
+        newsList.add(news);
+    }
 }

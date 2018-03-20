@@ -1,67 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/menu_container"
-    android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/menu_container"
         android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:background="@color/colorMenuActive"
-        >
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="fill_vertical"
-            android:focusableInTouchMode="true" >
-            <android.support.v7.widget.SearchView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/search"
-                android:hint="@string/search_hint"
-                android:layout_centerVertical="true" />
-            <LinearLayout
-                android:layout_width="wrap_content"
+            android:layout_height="?android:actionBarSize"
+            android:background="@color/colorMenuActive"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_alignParentEnd="true">
-                <ImageButton
-                    android:id="@+id/toolbar_shopping_cart"
+                android:gravity="fill_vertical"
+                android:focusableInTouchMode="true" >
+                <android.support.v7.widget.SearchView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shopping_cart_empty"
-                    android:padding="15dp"
-                    android:background="@android:color/transparent"
-                    tools:ignore="ContentDescription"
-                    />
-                <ImageButton
-                    android:id="@+id/toolbar_profile"
+                    android:id="@+id/search"
+                    android:hint="@string/search_hint"
+                    android:layout_centerVertical="true" />
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/profile"
-                    android:padding="15dp"
-                    android:background="@android:color/transparent"
-                    tools:ignore="ContentDescription"/>
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentEnd="true">
+                    <ImageButton
+                        android:id="@+id/toolbar_shopping_cart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shopping_cart_empty"
+                        android:padding="15dp"
+                        android:background="@android:color/transparent"
+                        tools:ignore="ContentDescription"
+                        />
+                    <ImageButton
+                        android:id="@+id/toolbar_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/profile"
+                        android:padding="15dp"
+                        android:background="@android:color/transparent"
+                        tools:ignore="ContentDescription"/>
+                </LinearLayout>
 
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-<android.support.v4.view.ViewPager
-    android:id="@+id/menu_view_pager"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="20">
-</android.support.v4.view.ViewPager>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="#c4c4c4" />
-<fragment
-    android:id="@+id/navigation_menu_fragment"
-    class="com.example.indormitory.NavigationMenuFragment"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="2" />
-</LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/menu_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20">
+        </android.support.v4.view.ViewPager>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c4c4c4" />
+        <fragment
+            android:id="@+id/navigation_menu_fragment"
+            class="com.example.indormitory.NavigationMenuFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+    </LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:indeterminate="false"
+        android:visibility="gone"
+        android:indeterminateDrawable="@drawable/progress_bar_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

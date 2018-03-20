@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="4dp"
             android:textAlignment="center"
-            android:text="Title"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="22sp"
@@ -40,15 +39,13 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
             app:layout_constraintTop_toBottomOf="@id/news_title"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/news_publication_date"
+            android:id="@+id/news_date"
             android:layout_width="match_parent"
             android:layout_height="33dp"
-            android:text="11.12.11"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@id/news_logo"
             android:paddingTop="5dp"
@@ -68,7 +65,6 @@
             android:layout_marginEnd="6dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
-            android:text="Description"
             android:maxLines="3"
             android:textColor="@android:color/black"
             android:textSize="15sp"
