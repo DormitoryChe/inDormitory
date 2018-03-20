@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,14 +101,18 @@ public class MenuItemFragment extends Fragment {
                     mDishCountTextView.setText(String.valueOf(1));
                 }
             });
+            itemView.findViewById(R.id.dish_plus_button).setClickable(true);
             itemView.findViewById(R.id.dish_plus_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.e("Basket", "click");
+                    Log.e("Basket", String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString())));
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) < 10)
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
                 }
             });
-            itemView.findViewById(R.id.dish_plus_button).setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.dish_minus_button).setClickable(true);
+            itemView.findViewById(R.id.dish_minus_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1)
