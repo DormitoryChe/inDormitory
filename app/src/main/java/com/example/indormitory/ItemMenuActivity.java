@@ -1,11 +1,17 @@
 package com.example.indormitory;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
@@ -17,20 +23,23 @@ import com.example.indormitory.models.Dish;
 
 public class ItemMenuActivity extends BaseActivity {
     private static final String UUID_EXTRA = "uuid_extra";
-    private String dishId;
     private Dish mDish;
-    private TextView mDishNameTextView;
-    private TextView mDishPriceTextView;
     private TextView mDishCountTextView;
+    private LinearLayout mDishIngredientsItemMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_menu);
 
-        mDishNameTextView = findViewById(R.id.food_name);
-        mDishPriceTextView = findViewById(R.id.dish_price);
+        TextView mDishNameTextView = findViewById(R.id.food_name);
+        TextView mDishPriceTextView = findViewById(R.id.dish_price);
         mDishCountTextView = findViewById(R.id.dish_count);
+        ImageView mDishLogoImageView = findViewById(R.id.menu_logo);
+        TextView mDishCaloriesTextView = findViewById(R.id.food_calories);
+        TextView mDishWeightTextView = findViewById(R.id.food_weight);
+        TextView mDishInformationTextView = findViewById(R.id.information);
+        mDishIngredientsItemMenu = findViewById(R.id.ingredients);
 
         findViewById(R.id.toolbar_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,10 +84,31 @@ public class ItemMenuActivity extends BaseActivity {
             }
         });
 
-        dishId = getIntent().getStringExtra(UUID_EXTRA);
+        String dishId = getIntent().getStringExtra(UUID_EXTRA);
         mDish = AllDishes.get().getDish(dishId);
 
         mDishNameTextView.setText(mDish.getTitle());
         mDishPriceTextView.setText(String.valueOf(mDish.getPrice()));
+        mDishWeightTextView.setText(String.valueOf(mDish.getWeight()));
+        mDishCaloriesTextView.setText(String.valueOf(mDish.getCalories()));
+        Log.e("Basket", mDish.getImagePath());
+        Glide.with(ItemMenuActivity.this).load(mDish.getImagePath()).into(mDishLogoImageView);
+        mDishLogoImageView.setVisibility(View.VISIBLE);
+        mDishInformationTextView.setText(mDish.getDescription());
+        addIngredients();
+    }
+
+    private void addIngredients() {
+        for(String ingredient : mDish.getIngredients()) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, 10);
+            TextView textView = new TextView(getApplicationContext());
+            textView.setText(ingredient);
+            textView.setCompoundDrawablePadding(15);
+            textView.setTextColor(Color.BLACK);
+            textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.circle, 0, 0, 0);
+            textView.setLayoutParams(params);
+            mDishIngredientsItemMenu.addView(textView);
+        }
     }
 }

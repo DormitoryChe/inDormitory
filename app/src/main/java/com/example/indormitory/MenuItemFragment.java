@@ -91,6 +91,7 @@ public class MenuItemFragment extends Fragment {
             mDish = dish;
             mTitleTextView.setText(mDish.getTitle());
             mPriceTextView.setText(String.valueOf(mDish.getPrice()));
+
             Glide.with(MenuItemFragment.this).load(mDish.getImagePath()).into(mDishLogoImageView);
             mDishLogoImageView.setVisibility(View.VISIBLE);
 

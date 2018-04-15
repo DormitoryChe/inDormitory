@@ -13,18 +13,19 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Dish;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -37,8 +38,6 @@ public class MenuActivity extends BaseActivity {
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth;
-    private FirebaseUser mCurrentUser;
     private ProgressBar progressBar;
     private AllDishes allDishes = AllDishes.get();
 
@@ -48,8 +47,6 @@ public class MenuActivity extends BaseActivity {
         setContentView(R.layout.activity_menu);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        mAuth = FirebaseAuth.getInstance();
-        mCurrentUser = mAuth.getCurrentUser();
 
         progressBar = findViewById(R.id.progressBar);
         mViewPager = findViewById(R.id.menu_view_pager);
@@ -72,12 +69,11 @@ public class MenuActivity extends BaseActivity {
             }
         });
         initializeSearch();
-
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setClipToPadding(false);
         if(allDishes.getAllDishes().size() == 0) {
-            WaitFetch waitFetch = new WaitFetch();
+            WaitFetch waitFetch = new WaitFetch(this);
             waitFetch.execute();
         }
     }
@@ -92,9 +88,9 @@ public class MenuActivity extends BaseActivity {
                                             documentSnapshot.get("image_path").toString(), (ArrayList<String>)documentSnapshot.get("ingredients"),
                                             documentSnapshot.get("information").toString(), Double.valueOf(documentSnapshot.get("weight").toString()),
                                             Double.valueOf(documentSnapshot.get("calories").toString()));
+                        //downloadDishLogo(dish);
                         if(allDishes.getAllDishes().containsKey(documentSnapshot.get("type").toString())) {
                             allDishes.getAllDishes().get(documentSnapshot.get("type").toString()).add(dish);
-
                         } else {
                             ArrayList<Dish> dishes = new ArrayList<>();
                             dishes.add(dish);
@@ -104,6 +100,22 @@ public class MenuActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void downloadDishLogo(Dish dish) {
+        ImageView temp = new ImageView(getApplicationContext());
+        Glide.with(MenuActivity.this).load(dish.getImagePath()).into(temp);
+        dish.setImage(temp.getBackground());
+        Log.e("Basket", dish.getImagePath());
+        while (dish.getImage() == null)
+            try {
+                dish.setImage(temp.getBackground());
+                //Log.e("Basket", "Downloading...");
+                TimeUnit.MILLISECONDS.sleep(30);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        Log.e("Basket", "Finish");
     }
 
     @Override
@@ -130,19 +142,24 @@ public class MenuActivity extends BaseActivity {
         }
     }
 
-    class WaitFetch extends AsyncTask<Void, Void, Void> {
+    private static class WaitFetch extends AsyncTask<Void, Void, Void> {
+        private final WeakReference<MenuActivity> mActivityRef;
+        WaitFetch(MenuActivity activity){
+            mActivityRef = new WeakReference<>(activity);
+        }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.setIndeterminate(false);
-            progressBar.setMax(1000);
-            mViewPager.setVisibility(View.GONE);
+            mActivityRef.get().progressBar.setVisibility(View.VISIBLE);
+            mActivityRef.get().progressBar.setIndeterminate(false);
+            mActivityRef.get().progressBar.setMax(1000);
+            mActivityRef.get().mViewPager.setVisibility(View.GONE);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            fetchDishesFromDatabase();
+            mActivityRef.get().fetchDishesFromDatabase();
             while (AllDishes.get().getAllDishes().size() == 0)
                 try {
                     TimeUnit.MILLISECONDS.sleep(30);
@@ -155,10 +172,9 @@ public class MenuActivity extends BaseActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.e("Basket", allDishes.getAllDishes().toString());
-            progressBar.setVisibility(View.GONE);
-            mViewPager.setVisibility(View.VISIBLE);
-            mPagerAdapter.notifyDataSetChanged();
+            mActivityRef.get().progressBar.setVisibility(View.GONE);
+            mActivityRef.get().mViewPager.setVisibility(View.VISIBLE);
+            mActivityRef.get().mPagerAdapter.notifyDataSetChanged();
 
         }
     }
