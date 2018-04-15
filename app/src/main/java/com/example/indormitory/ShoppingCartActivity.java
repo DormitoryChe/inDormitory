@@ -15,12 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Ростислав on 14.03.2018.
@@ -105,6 +108,7 @@ public class ShoppingCartActivity extends BaseActivity {
         private TextView mOnePriceTextView;
         private TextView mDishCountTextView;
         private ImageButton mDeleteDishButton;
+        private CircleImageView mDishLogoImageView;
         private Dish mDish;
         private int mCount;
 
@@ -116,6 +120,7 @@ public class ShoppingCartActivity extends BaseActivity {
             mOnePriceTextView = itemView.findViewById(R.id.one_dish_price);
             mDishCountTextView = itemView.findViewById(R.id.dish_count);
             mDeleteDishButton = itemView.findViewById(R.id.delete_dish);
+            mDishLogoImageView = itemView.findViewById(R.id.dish_logo);
         }
 
         void bind(Dish dish, int count) {
@@ -125,6 +130,8 @@ public class ShoppingCartActivity extends BaseActivity {
             mTotalPriceTextView.setText(String.valueOf(mDish.getPrice()*mCount));
             mOnePriceTextView.setText(String.valueOf(mDish.getPrice()));
             mDishCountTextView.setText(String.valueOf(count));
+            Glide.with(ShoppingCartActivity.this).load(mDish.getImagePath()).into(mDishLogoImageView);
+            mDishLogoImageView.setVisibility(View.VISIBLE);
 
             itemView.findViewById(R.id.dish_plus_button).setOnClickListener(new View.OnClickListener() {
                 @Override

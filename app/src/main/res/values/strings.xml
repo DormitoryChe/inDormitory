@@ -19,7 +19,7 @@
 
     <!--For activity item menu-->
     <string name="ingredients_title">Ingredients</string>
-    <string name="method_of_cooking_title">Method of cooking</string>
+    <string name="method_of_cooking_title">Information</string>
 
     <!--For login -->
     <string name="login_title">Login</string>

@@ -278,41 +278,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ingredients_title">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:drawablePadding="4dp"
-                    android:drawableStart="@drawable/circle"
-                    android:text="Горошок (1 коробка)"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:drawablePadding="4dp"
-                    android:drawableStart="@drawable/circle"
-                    android:text="Майонез (на око)"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:drawablePadding="4dp"
-                    android:drawableStart="@drawable/circle"
-                    android:text="Ковбаса (200 грам на порцію)"
-                    android:textColor="#000000" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:drawablePadding="4dp"
-                    android:drawableStart="@drawable/circle"
-                    android:text="Картопля варена (100 грам на порцію)"
-                    android:textColor="#000000" />
             </LinearLayout>
 
             <View
@@ -339,13 +304,12 @@
                 app:layout_constraintTop_toBottomOf="@id/hr_line3" />
 
             <TextView
-                android:id="@+id/method_of_cooking"
+                android:id="@+id/information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
-                android:text="Все нарізають кубиками, перемішують і заправляють майонезом. Простота виготовлення і доступність інгредієнтів зробили цей салат надзвичайно популярною стравою в радянські роки. «Олів'є» був неодмінним атрибутом радянського святкового столу на 7 листопада і Новий рік. Інша назва сучасного рецепта цього салату — «Зимовий» — виникло через те, що його інгредієнти легко доступні в зимовий час, на відміну від інгредієнтів «літніх» салатів."
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

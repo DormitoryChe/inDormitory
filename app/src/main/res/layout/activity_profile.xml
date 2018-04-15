@@ -95,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:paddingTop="6dp"
                 android:text="Pisun Gazirovanuy"
                 android:textColor="@color/colorMenuActive"
@@ -108,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="oisungazirovaniy@oisun.co"
                 app:layout_constraintStart_toEndOf="@id/profile_avatar"
                 app:layout_constraintTop_toBottomOf="@id/name"/>
@@ -204,12 +206,13 @@
                 android:textColor="@color/colorMenuActive"/>
 
             <Button
-                android:id="@+id/change_mail"
+                android:id="@+id/change_mail_button"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="@string/mail_change_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:textAlignment="textStart"
                 android:textSize="16sp"
                 android:textAllCaps="false"
@@ -217,9 +220,10 @@
 
 
             <Button
-                android:id="@+id/change_phone_number"
+                android:id="@+id/change_phone_number_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="@string/phone_change_button"
@@ -229,9 +233,10 @@
                 android:textColor="@color/colorMenuNotActive"/>
 
             <Button
-                android:id="@+id/change_password"
+                android:id="@+id/change_password_button"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="@string/change_password_button"

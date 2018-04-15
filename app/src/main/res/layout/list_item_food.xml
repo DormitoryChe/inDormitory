@@ -26,7 +26,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/salat"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -36,7 +35,6 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:textAlignment="center"
-                android:text="Olive"
                 android:background="#90FFFFFF"
                 android:textStyle="bold"
                 android:textColor="#000000"
@@ -85,6 +83,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="#00FFFFFF"
+                    tools:ignore="ContentDescription"
                     android:src="@drawable/minus_button_animate" />
 
                 <TextView
@@ -101,6 +100,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="#00FFFFFF"
+                    tools:ignore="ContentDescription"
                     android:src="@drawable/plus_button_animate" />
             </LinearLayout>
             <Button
@@ -109,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:background="@drawable/button_buy_default"
-                android:drawableRight="@drawable/shopping_cart_plus"
+                android:drawableEnd="@drawable/shopping_cart_plus"
                 android:text="@string/add_button"
                 android:textAlignment="textStart"
                 android:paddingStart="10dp"

@@ -62,6 +62,14 @@ public class Dish {
         this.image = image;
     }
 
+    public double getCalories() {
+        return calories;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
     @Override
     public String toString() {
         return "Dish " +

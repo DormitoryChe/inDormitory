@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +50,7 @@ public class NewsFragment extends Fragment {
         mNewsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         allNews = AllNews.get();
         if(allNews.getNewsList().size() == 0) {
-            WaitFetch waitFetch = new WaitFetch();
+            WaitFetch waitFetch = new WaitFetch(this);
             waitFetch.execute();
         } else {
             configureAdapter();
@@ -108,6 +109,7 @@ public class NewsFragment extends Fragment {
             mTitleTextView.setText(mNews.getTitle());
             Glide.with(NewsFragment.this).load(mNews.getImagePath()).into(mNewsLogoImageView);
             mNewsLogoImageView.setVisibility(View.VISIBLE);
+
             mDescriptionTextView.setText(mNews.getDescription());
             mNewsDateTextView.setText(mNews.getNewsDateBegin() + " - " + mNews.getNewsDateEnd());
             mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
@@ -172,20 +174,24 @@ public class NewsFragment extends Fragment {
         }
     }
 
-    class WaitFetch extends AsyncTask<Void, Void, Void> {
+    private static class WaitFetch extends AsyncTask<Void, Void, Void> {
+        private final WeakReference<NewsFragment> mFragmentRef;
+        WaitFetch(NewsFragment fragment){
+            mFragmentRef = new WeakReference<>(fragment);
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.setIndeterminate(false);
-            progressBar.setMax(1000);
-            mNewsRecyclerView.setVisibility(View.GONE);
+            mFragmentRef.get().progressBar.setVisibility(View.VISIBLE);
+            mFragmentRef.get().progressBar.setIndeterminate(false);
+            mFragmentRef.get().progressBar.setMax(1000);
+            mFragmentRef.get().mNewsRecyclerView.setVisibility(View.GONE);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            fetchNewsFromDatabase();
-            while (allNews.getNewsList().size() == 0)
+            mFragmentRef.get().fetchNewsFromDatabase();
+            while (mFragmentRef.get().allNews.getNewsList().size() == 0)
                 try {
                     TimeUnit.MILLISECONDS.sleep(1);
                 } catch (InterruptedException e) {
@@ -197,8 +203,8 @@ public class NewsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            progressBar.setVisibility(View.GONE);
-            mNewsRecyclerView.setVisibility(View.VISIBLE);
+            mFragmentRef.get().progressBar.setVisibility(View.GONE);
+            mFragmentRef.get().mNewsRecyclerView.setVisibility(View.VISIBLE);
         }
     }
 }
