@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.indormitory.models.AllDishes;
@@ -99,6 +100,7 @@ public class MenuItemFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
+                    Toast.makeText(getContext(), R.string.add_button_toast, Toast.LENGTH_SHORT).show();
                     mDishCountTextView.setText(String.valueOf(1));
                 }
             });

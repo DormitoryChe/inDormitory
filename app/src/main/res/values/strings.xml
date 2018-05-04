@@ -20,6 +20,7 @@
     <!--For activity item menu-->
     <string name="ingredients_title">Ingredients</string>
     <string name="method_of_cooking_title">Information</string>
+    <string name="add_button_toast">Added</string>
 
     <!--For login -->
     <string name="login_title">Login</string>
@@ -27,6 +28,7 @@
     <string name="do_not_have_account">Doesn`t have account?</string>
     <string name="register_now"> <u> Register now! </u> </string>
     <string name="login_by">Login by</string>
+    <string name="fail_login_toast">Authentication failed</string>
 
     <!-- For Register -->
     <string name="register_title">Register</string>
@@ -89,5 +91,11 @@
     <string name="change_password_button">Change password</string>
     <string name="logout_button">log out</string>
 
+
+    <!-- Facebook -->
+    <string name="facebook_app_id">2007738229475178</string>
+    <string name="fb_login_protocol_scheme">fb2007738229475178</string>
+
+    <string name="client_id">24620607921-4nuqsej8kr16mpam7gad3uehsaf0mr37.apps.googleusercontent.com</string>
 
 </resources>

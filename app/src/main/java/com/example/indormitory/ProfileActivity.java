@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.indormitory.validators.Validator;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -31,6 +33,8 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!FacebookSdk.isInitialized())
+            FacebookSdk.sdkInitialize(ProfileActivity.this);
         setContentView(R.layout.activity_profile);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -54,6 +58,8 @@ public class ProfileActivity extends BaseActivity {
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (LoginManager.getInstance() != null)
+                    LoginManager.getInstance().logOut();
                 mAuth.signOut();
                 startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             }

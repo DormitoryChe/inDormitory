@@ -1,20 +1,16 @@
 package com.example.indormitory;
 
-import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.indormitory.models.News;
 import com.example.indormitory.models.Review;
 
 import java.util.ArrayList;
@@ -66,13 +62,14 @@ public class ReviewsFragment extends Fragment {
 
             mUserNameTextView = itemView.findViewById(R.id.profile_name);
             mTitleTextView = itemView.findViewById(R.id.review_description);
-
         }
 
         void bind(Review review) {
             mReview = review;
             mTitleTextView.setText(mReview.getTitle());
             mUserNameTextView.setText(mReview.getUserName());
+            if (mTitleTextView.getLineCount() <= mTitleTextView.getMaxLines())
+                itemView.findViewById(R.id.review_more_button).setVisibility(View.GONE);
         }
     }
 

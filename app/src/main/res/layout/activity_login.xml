@@ -145,7 +145,7 @@
                 android:gravity="center"
                 >
 
-                <Button
+                <com.facebook.login.widget.LoginButton
                     android:id="@+id/facebook_login_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -164,7 +164,7 @@
                     android:background="#FFFFFF"
                     />
 
-                <Button
+                <com.google.android.gms.common.SignInButton
                     android:id="@+id/google_login_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"

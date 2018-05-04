@@ -10,13 +10,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Dish;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -100,22 +97,6 @@ public class MenuActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    private void downloadDishLogo(Dish dish) {
-        ImageView temp = new ImageView(getApplicationContext());
-        Glide.with(MenuActivity.this).load(dish.getImagePath()).into(temp);
-        dish.setImage(temp.getBackground());
-        Log.e("Basket", dish.getImagePath());
-        while (dish.getImage() == null)
-            try {
-                dish.setImage(temp.getBackground());
-                //Log.e("Basket", "Downloading...");
-                TimeUnit.MILLISECONDS.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        Log.e("Basket", "Finish");
     }
 
     @Override

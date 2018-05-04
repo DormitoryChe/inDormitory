@@ -1,6 +1,5 @@
 package com.example.indormitory;
 
-import android.animation.ObjectAnimator;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +101,6 @@ public class NewsFragment extends Fragment {
             mDescriptionTextView = itemView.findViewById(R.id.news_description);
             mMoreDescriptionButton = itemView.findViewById(R.id.news_more_button);
             mNewsDateTextView = itemView.findViewById(R.id.news_date);
-
         }
 
         void bind(News news) {
@@ -112,36 +111,19 @@ public class NewsFragment extends Fragment {
 
             mDescriptionTextView.setText(mNews.getDescription());
             mNewsDateTextView.setText(mNews.getNewsDateBegin() + " - " + mNews.getNewsDateEnd());
-            mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
-                boolean isMoreTextVisible = false;
-
-                ObjectAnimator animation = ObjectAnimator.ofInt(
-                        mDescriptionTextView,
-                        "maxLines",
-                        25);
-                ObjectAnimator animation1 = ObjectAnimator.ofInt(
-                        mDescriptionTextView,
-                        "maxLines",
-                        3);
-
-                @Override
-                public void onClick(View v) {
-                    animation.setDuration(1000);
-                    animation1.setDuration(1000);
-                    Log.e("BaseActivity", "Start delay = " + animation.getStartDelay() );
-
-                    if (isMoreTextVisible) {
-                        animation1.start();
-                        mMoreDescriptionButton.setImageResource(R.drawable.arrow_down);
-                    } else {
-                        animation.start();
-                        mMoreDescriptionButton.setImageResource(R.drawable.arrow_up);
+            //Log.e("Basket", "Line counts = " + descriptionTextLineCount);
+           // if (count >= mDescriptionTextView.getMaxLines())
+                mMoreDescriptionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TransitionManager.beginDelayedTransition( (ViewGroup) itemView.findViewById(R.id.news_list_container));
+                        mDescriptionTextView.setMaxLines(Integer.MAX_VALUE);
+                        mMoreDescriptionButton.setVisibility(View.GONE);
                     }
-
-                    isMoreTextVisible = !isMoreTextVisible;
-                }
-            });
-        }
+                });
+           // else
+             //   mMoreDescriptionButton.setVisibility(View.GONE);
+            }
     }
 
     private class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
