@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +20,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.indormitory.models.Table;
+import com.example.indormitory.network.LoadData;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -40,6 +48,7 @@ public class ReservationActivity extends BaseActivity {
     private AlertDialog.Builder alertBuilder;
     private AlertDialog alertDialog;
     private LayoutInflater inflater;
+    private List<Table> allTables = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,13 +59,14 @@ public class ReservationActivity extends BaseActivity {
         alertBuilder = new AlertDialog.Builder(this);
         mSwipeRefreshLayout = findViewById(R.id.swipe_refresh);
 
+        new WaitFetch(this).execute();
         findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    startActivity(new Intent(ReservationActivity.this, LoginActivity.class));
+                if(isUserLoggedIn()) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(ReservationActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
@@ -226,5 +236,42 @@ public class ReservationActivity extends BaseActivity {
         drawable.draw(canvas);
 
         return bitmap;
+    }
+
+    private void configureTable(){
+        for(Table table : allTables) {
+            int tableId = getResources().getIdentifier("table_" + table.getPosition() + "_button", "id", getPackageName());
+            if (table.isFree()) {
+                findViewById(tableId).setBackground(getResources().getDrawable(R.drawable.seat_free));
+            } else if (table.isReserved()) {
+                findViewById(tableId).setBackground(getResources().getDrawable(R.drawable.seat_reserved));
+            } else if (table.isBusy()) {
+                findViewById(tableId).setBackground(getResources().getDrawable(R.drawable.seat_busy));
+            }
+        }
+    }
+
+    private static class WaitFetch extends AsyncTask<Void, Void, Void> {
+        private final WeakReference<ReservationActivity> mFragmentRef;
+        WaitFetch(ReservationActivity activity){
+            mFragmentRef = new WeakReference<>(activity);
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            LoadData.loadTables(mFragmentRef.get().allTables);
+            while (mFragmentRef.get().allTables.size() == 0)
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mFragmentRef.get().configureTable();
+        }
     }
 }

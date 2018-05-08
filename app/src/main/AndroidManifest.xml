@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.indormitory">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -51,6 +55,7 @@
         <activity android:name=".BuyAtTimeActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".BaseActivity" />
+        <activity android:name="ua.privatbank.paylibliqpay.CheckoutActivity"/>
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
@@ -69,10 +74,10 @@
             </intent-filter>
         </activity>
 
-
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA" />
+
+
+
 
 
 </manifest>

@@ -28,14 +28,13 @@ public class BuyAtTimeActivity extends BaseActivity {
                 finish();
             }
         });
-
         findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    startActivity(new Intent(BuyAtTimeActivity.this, LoginActivity.class));
+                if(isUserLoggedIn()) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(BuyAtTimeActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
@@ -50,7 +49,6 @@ public class BuyAtTimeActivity extends BaseActivity {
                 startActivity(new Intent(BuyAtTimeActivity.this, ReservationActivity.class));
             }
         });
-
         timePicker.setIs24HourView(true);
     }
 }
