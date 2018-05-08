@@ -41,7 +41,7 @@ public class ProfileActivity extends BaseActivity {
         builder = new AlertDialog.Builder(this);
         inflater = (this).getLayoutInflater();
 
-        if(mCurrentUser == null)
+        if(!isUserLoggedIn())
             startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override

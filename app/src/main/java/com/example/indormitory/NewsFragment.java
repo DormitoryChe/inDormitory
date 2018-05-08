@@ -20,11 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.indormitory.models.AllNews;
 import com.example.indormitory.models.News;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.indormitory.network.LoadData;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -36,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 
 public class NewsFragment extends Fragment {
     private RecyclerView mNewsRecyclerView;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private NewsAdapter mAdapter;
     private AllNews allNews;
     private ProgressBar progressBar;
@@ -56,23 +51,6 @@ public class NewsFragment extends Fragment {
             configureAdapter();
         }
         return view;
-    }
-
-    private void fetchNewsFromDatabase() {
-        db.collection("news").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
-                    for(DocumentSnapshot documentSnapshot : task.getResult()) {
-                        News news = new News(documentSnapshot.get("news_title").toString(), documentSnapshot.get("news_description").toString(),
-                                        documentSnapshot.get("news_image_path").toString(), documentSnapshot.get("news_date_begin").toString(),
-                                        documentSnapshot.get("news_date_end").toString());
-                        allNews.addNews(news);
-                    }
-                    configureAdapter();
-                }
-            }
-        });
     }
 
     private void configureAdapter() {
@@ -172,7 +150,7 @@ public class NewsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            mFragmentRef.get().fetchNewsFromDatabase();
+            LoadData.loadNews();
             while (mFragmentRef.get().allNews.getNewsList().size() == 0)
                 try {
                     TimeUnit.MILLISECONDS.sleep(1);
@@ -185,6 +163,7 @@ public class NewsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            mFragmentRef.get().configureAdapter();
             mFragmentRef.get().progressBar.setVisibility(View.GONE);
             mFragmentRef.get().mNewsRecyclerView.setVisibility(View.VISIBLE);
         }

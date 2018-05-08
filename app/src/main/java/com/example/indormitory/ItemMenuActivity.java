@@ -16,7 +16,6 @@ import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
 
-
 /**
  * Created by Ростислав on 13.03.2018.
  */
@@ -50,10 +49,10 @@ public class ItemMenuActivity extends BaseActivity {
         findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    startActivity(new Intent(ItemMenuActivity.this, LoginActivity.class));
+                if(isUserLoggedIn()) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(ItemMenuActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {

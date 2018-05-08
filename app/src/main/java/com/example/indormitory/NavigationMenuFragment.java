@@ -22,16 +22,20 @@ public class NavigationMenuFragment extends Fragment {
     private TextView newsTextView;
     private TextView buyTextView;
     private TextView scanTextView;
+    private LinearLayout reservationLayout;
+    private LinearLayout newsLayout;
+    private LinearLayout buyLayout;
+    private LinearLayout scanLayout;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_navigation_menu, container, false);
 
-        LinearLayout reservationLayout = view.findViewById(R.id.linear_layout_reservation);
-        LinearLayout newsLayout = view.findViewById(R.id.linear_layout_news);
-        LinearLayout buyLayout = view.findViewById(R.id.linear_layout_buy);
-        LinearLayout scanLayout = view.findViewById(R.id.linear_layout_scan);
+        reservationLayout = view.findViewById(R.id.linear_layout_reservation);
+        newsLayout = view.findViewById(R.id.linear_layout_news);
+        buyLayout = view.findViewById(R.id.linear_layout_buy);
+        scanLayout = view.findViewById(R.id.linear_layout_scan);
 
         reservationImageView = view.findViewById(R.id.image_view_reservation);
         newsImageView = view.findViewById(R.id.image_view_news);
@@ -54,6 +58,7 @@ public class NavigationMenuFragment extends Fragment {
         else
             configureNavigationMenuByDefault();
 
+        configureButtonsEnabled();
         reservationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +124,10 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         scanImageView.setImageResource(R.drawable.qr_code_not_active);
         scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        buyLayout.setClickable(true);
+        reservationLayout.setClickable(false);
+        newsLayout.setClickable(true);
+        scanLayout.setClickable(true);
     }
 
     public void configureNavigationMenuForNews() {
@@ -130,6 +139,10 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         scanImageView.setImageResource(R.drawable.qr_code_not_active);
         scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        buyLayout.setClickable(true);
+        reservationLayout.setClickable(true);
+        newsLayout.setClickable(false);
+        scanLayout.setClickable(true);
     }
     public void configureNavigationMenuForBuy() {
         reservationImageView.setImageResource(R.drawable.reservation_not_active);
@@ -140,6 +153,10 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
         scanImageView.setImageResource(R.drawable.qr_code_not_active);
         scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        buyLayout.setEnabled(false);
+        reservationLayout.setEnabled(true);
+        newsLayout.setEnabled(true);
+        scanLayout.setEnabled(true);
     }
 
     public void configureNavigationMenuForScan() {
@@ -151,6 +168,10 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         scanImageView.setImageResource(R.drawable.qr_code_active);
         scanTextView.setTextColor(getResources().getColor(R.color.colorMenuActive));
+        buyLayout.setEnabled(true);
+        reservationLayout.setEnabled(true);
+        newsLayout.setEnabled(true);
+        scanLayout.setEnabled(false);
     }
 
     public void configureNavigationMenuByDefault() {
@@ -162,5 +183,28 @@ public class NavigationMenuFragment extends Fragment {
         buyTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
         scanImageView.setImageResource(R.drawable.qr_code_not_active);
         scanTextView.setTextColor(getResources().getColor(R.color.colorMenuNotActive));
+        buyLayout.setEnabled(true);
+        reservationLayout.setEnabled(true);
+        newsLayout.setEnabled(true);
+        scanLayout.setEnabled(true);
+    }
+
+    private void configureButtonsEnabled() {
+        if(getActivity() instanceof MenuActivity)
+            buyLayout.setEnabled(false);
+        else
+            buyLayout.setEnabled(true);
+        if(getActivity() instanceof ReservationActivity)
+            reservationLayout.setEnabled(false);
+        else
+            reservationLayout.setEnabled(true);
+        if(getActivity() instanceof NewsActivity)
+            newsLayout.setEnabled(false);
+        else
+            newsLayout.setEnabled(true);
+        if(getActivity() instanceof ScanActivity)
+            scanLayout.setEnabled(false);
+        else
+            scanLayout.setEnabled(true);
     }
 }

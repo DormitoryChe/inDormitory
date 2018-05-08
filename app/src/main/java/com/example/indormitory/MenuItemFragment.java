@@ -37,7 +37,6 @@ public class MenuItemFragment extends Fragment {
     private List<Dish> mDishesList = new ArrayList<>();
 
     static MenuItemFragment newInstance(int position) {
-
         MenuItemFragment menuItemFragment = new MenuItemFragment();
         items = AllDishes.get().getAllDishes().keySet().toArray(new String[AllDishes.get().getAllDishes().keySet().size()]);
         Bundle arguments = new Bundle();

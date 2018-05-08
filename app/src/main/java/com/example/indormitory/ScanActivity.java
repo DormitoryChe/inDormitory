@@ -23,6 +23,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScanActivity extends BaseActivity implements ZXingScannerView.ResultHandler {
     private static final String HASH_DISH = "d51f95cd19fecba66558f490554838ee";
+    private static final String HASH_TABLE = "aab9e1de16f38176f86d7a92ba337a8d";
     private static final String UUID_EXTRA = "uuid_extra";
     private ZXingScannerView mScannerView;
     private AlertDialog.Builder builder;
@@ -31,8 +32,8 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
-        mScannerView = findViewById(R.id.scaner);
+        mScannerView = new ZXingScannerView(this);
+        setContentView(mScannerView);
         builder = new AlertDialog.Builder(this);
         inflater = (this).getLayoutInflater();
     }
@@ -89,6 +90,8 @@ public class ScanActivity extends BaseActivity implements ZXingScannerView.Resul
                     onResume();
                 }
             });
+        } else if (stringResult.contains(HASH_TABLE)) {
+            //TODO busy table
         } else {
             Toast.makeText(getApplicationContext(), R.string.nothing_to_show, Toast.LENGTH_SHORT).show();
             onResume();

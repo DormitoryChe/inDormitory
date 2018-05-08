@@ -8,10 +8,12 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_buy"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,10 +36,12 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_reservation"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linear_layout_buy"
@@ -61,10 +65,12 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_news"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linear_layout_reservation"
@@ -87,10 +93,12 @@
 
     <LinearLayout
         android:id="@+id/linear_layout_scan"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linear_layout_news"

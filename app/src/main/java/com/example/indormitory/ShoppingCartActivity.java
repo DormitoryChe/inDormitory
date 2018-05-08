@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +21,21 @@ import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ua.privatbank.paylibliqpay.ErrorCode;
+import ua.privatbank.paylibliqpay.LiqPay;
+import ua.privatbank.paylibliqpay.LiqPayCallBack;
 
 /**
  * Created by Ростислав on 14.03.2018.
  */
 
 public class ShoppingCartActivity extends BaseActivity {
+
     private RecyclerView mMenuRecyclerView;
     private MenuAdapter mAdapter;
     private Map<Dish, Integer> mDishes;
@@ -53,30 +59,54 @@ public class ShoppingCartActivity extends BaseActivity {
         findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                if(isUserLoggedIn()) {
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(ShoppingCartActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
         findViewById(R.id.submit_shopping_cart_at_time).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    Toast.makeText(ShoppingCartActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                if(isUserLoggedIn()) {
+                    //TODO by at time activity
                 }
                 else {
-                    startActivity(new Intent(ShoppingCartActivity.this, BuyAtTimeActivity.class));
+                    redirectUserToLogin();
                 }
             }
         });
         findViewById(R.id.submit_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    Toast.makeText(ShoppingCartActivity.this, "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(ShoppingCartActivity.this, LoginActivity.class));
+                if(isUserLoggedIn()) {
+                    LiqPayCallBack callBack = new LiqPayCallBack() {
+                        @Override
+                        public void onResponseSuccess(final String resp) {
+                            //TODO on responce success
+                        }
+                        @Override
+                        public void onResponceError(final ErrorCode errorCode) {
+                            //TODO on responce error
+                        }
+                    };
+
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("version", "3");
+                    map.put("public_key", "i80499295503");
+                    map.put("action", "pay");
+                    map.put("amount", "1");
+                    map.put("currency", "UAH");
+                    map.put("description", "Оплата: Пакет 20");
+                    map.put("order_id", String.valueOf(Math.random()*999999));
+                    map.put("language", "ru");
+                    map.put("server_url", "http://***.gq");
+                    map.put("sandbox", "1");
+                    String privateKey = "KaiuCPXH9uIEyH6VI6MV0R72sC1pFMKFSZZ4g0z0";
+                    Log.e("Basket", "Before checkout");
+                    LiqPay.checkout(getApplicationContext(), map, privateKey, callBack);
+                } else {
+                    redirectUserToLogin();
                 }
             }
         });

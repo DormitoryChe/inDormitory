@@ -1,3 +1,4 @@
+
 package com.example.indormitory;
 
 import android.content.Intent;
@@ -29,10 +30,10 @@ public class NewsActivity extends BaseActivity {
         findViewById(R.id.toolbar_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCurrentUser == null) {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                } else
+                if(isUserLoggedIn()) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                } else
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
