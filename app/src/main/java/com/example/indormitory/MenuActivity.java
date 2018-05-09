@@ -9,12 +9,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.example.indormitory.models.AllDishes;
 import com.example.indormitory.network.LoadData;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.TimeUnit;
@@ -48,13 +51,15 @@ public class MenuActivity extends BaseActivity {
                 if(isUserLoggedIn()) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startSignInActivity();
             }
         });
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, ShoppingCartActivity.class));
+                Intent intent = new Intent(getApplicationContext(), ShoppingCartActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         initializeSearch();
@@ -64,6 +69,23 @@ public class MenuActivity extends BaseActivity {
         if(allDishes.getAllDishes().size() == 0) {
             WaitFetch waitFetch = new WaitFetch(this);
             waitFetch.execute();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("Firebase", "on Activity Result");
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+            } else {
+                // Sign in failed, check response for error code
+                // ...
+            }
         }
     }
 

@@ -14,11 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class ShoppingCartActivity extends BaseActivity {
                 if(isUserLoggedIn()) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startSignInActivity();
             }
         });
         findViewById(R.id.submit_shopping_cart_at_time).setOnClickListener(new View.OnClickListener() {
@@ -120,6 +121,23 @@ public class ShoppingCartActivity extends BaseActivity {
         totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
         mMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         configureAdapter();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("Firebase", "on Activity Result");
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+            } else {
+                // Sign in failed, check response for error code
+                // ...
+            }
+        }
     }
 
     private void configureAdapter() {
@@ -234,7 +252,10 @@ public class ShoppingCartActivity extends BaseActivity {
                 mGoBackToMenuTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                        finish();
                     }
                 });
             }
