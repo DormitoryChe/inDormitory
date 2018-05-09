@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/current_order_check">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@android:color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#C4C4C4"
+            android:text="@string/order_made"
+            android:paddingEnd="8dp"
+            />
+        <TextView
+            android:id="@+id/current_order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#C4C4C4"
+            android:textStyle="bold"
+            android:text="8:03 pm"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/current_order_check_items_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="@drawable/end_chack"
+        app:layout_constraintTop_toBottomOf="@+id/current_order_check_recycler_view"
+        />
+
+</LinearLayout>
