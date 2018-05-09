@@ -99,7 +99,7 @@
 
 
     <!-- Facebook -->
-    <string name="facebook_app_id">2007738229475178</string>
+    <string name="facebook_application_id">2007738229475178</string>
     <string name="fb_login_protocol_scheme">fb2007738229475178</string>
 
     <string name="client_id">24620607921-4nuqsej8kr16mpam7gad3uehsaf0mr37.apps.googleusercontent.com</string>

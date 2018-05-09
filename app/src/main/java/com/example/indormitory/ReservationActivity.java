@@ -22,6 +22,8 @@ import android.widget.ImageButton;
 
 import com.example.indormitory.models.Table;
 import com.example.indormitory.network.LoadData;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class ReservationActivity extends BaseActivity {
                 if(isUserLoggedIn()) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 } else
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    startSignInActivity();
             }
         });
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
@@ -158,6 +160,23 @@ public class ReservationActivity extends BaseActivity {
                 showAlertDialogByButtonState(mTable9Button);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("Firebase", "on Activity Result");
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK) {
+                // Successfully signed in
+                mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+            } else {
+                // Sign in failed, check response for error code
+                // ...
+            }
+        }
     }
 
     private void showAlertDialogByButtonState(Button button) {

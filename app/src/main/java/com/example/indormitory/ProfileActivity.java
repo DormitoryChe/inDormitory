@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.indormitory.validators.Validator;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -42,7 +42,7 @@ public class ProfileActivity extends BaseActivity {
         inflater = (this).getLayoutInflater();
 
         if(!isUserLoggedIn())
-            startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+            startSignInActivity();
         findViewById(R.id.toolbar_shopping_cart).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,10 +58,9 @@ public class ProfileActivity extends BaseActivity {
         findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (LoginManager.getInstance() != null)
-                    LoginManager.getInstance().logOut();
-                mAuth.signOut();
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                AuthUI.getInstance()
+                        .signOut(getApplicationContext());
+                startActivity(new Intent(ProfileActivity.this, NewsActivity.class));
             }
         });
         findViewById(R.id.change_password_button).setOnClickListener(new View.OnClickListener() {

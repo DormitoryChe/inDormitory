@@ -2,27 +2,27 @@ package com.example.indormitory;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 /**
  * Created by vproh on 17.03.2018.
  */
 
 public class BaseActivity extends AppCompatActivity {
+    public static final int RC_SIGN_IN = 123;
+
     SearchView mSearchView;
     FirebaseAuth mAuth;
     FirebaseUser mCurrentUser;
@@ -70,26 +70,20 @@ public class BaseActivity extends AppCompatActivity {
 
     public void redirectUserToLogin() {
         Toast.makeText(getApplicationContext(), "You are not authorized. Please login or signin", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        startSignInActivity();
     }
 
-    public void initView() {
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
-                        WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                PixelFormat.TRANSPARENT);
-        params.gravity = Gravity.BOTTOM | Gravity.END;
-        params.horizontalMargin = 20;
-        params.verticalMargin = 40;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        LayoutInflater layOutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        View viewAboveAllActivities = layOutInflater.inflate(R.layout.reserve_timer, null);
-
-        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        wm.addView(viewAboveAllActivities, params);
+    public void startSignInActivity() {
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(Arrays.asList(
+                                new AuthUI.IdpConfig.EmailBuilder().build(),
+                                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                                new AuthUI.IdpConfig.PhoneBuilder().build(),
+                                new AuthUI.IdpConfig.FacebookBuilder().build()))
+                        .setLogo(R.drawable.ic_donut)
+                        .build(),
+                RC_SIGN_IN);
     }
 }
