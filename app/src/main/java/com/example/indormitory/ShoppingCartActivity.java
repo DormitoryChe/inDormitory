@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.indormitory.models.Basket;
 import com.example.indormitory.models.Dish;
+import com.example.indormitory.models.Orders;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -48,7 +49,7 @@ public class ShoppingCartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
 
-        mDishes = Basket.get(getApplicationContext()).getDishes();
+        mDishes = Basket.get().getDishes();
         mMenuRecyclerView = findViewById(R.id.shopping_cart_recycler_view);
         mLinearLayout = findViewById(R.id.scroll_view_wrapper);
         findViewById(R.id.toolbar_back).setOnClickListener(new View.OnClickListener() {
@@ -91,7 +92,7 @@ public class ShoppingCartActivity extends BaseActivity {
                             //TODO on responce error
                         }
                     };
-
+                    Orders.get().addOrder(new HashMap<>(Basket.get().getDishes()));
                     HashMap<String, String> map = new HashMap<>();
                     map.put("version", "3");
                     map.put("public_key", "i80499295503");
@@ -104,7 +105,6 @@ public class ShoppingCartActivity extends BaseActivity {
                     map.put("server_url", "http://***.gq");
                     map.put("sandbox", "1");
                     String privateKey = "KaiuCPXH9uIEyH6VI6MV0R72sC1pFMKFSZZ4g0z0";
-                    Log.e("Basket", "Before checkout");
                     LiqPay.checkout(getApplicationContext(), map, privateKey, callBack);
                 } else {
                     redirectUserToLogin();
@@ -118,7 +118,7 @@ public class ShoppingCartActivity extends BaseActivity {
             }
         });
         totalPrice = findViewById(R.id.total_price);
-        totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+        totalPrice.setText(String.valueOf(Basket.get().getTotal()));
         mMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         configureAdapter();
     }
@@ -187,8 +187,8 @@ public class ShoppingCartActivity extends BaseActivity {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) < 50) {
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) + 1));
                         mTotalPriceTextView.setText(String.valueOf(mDish.getPrice()*Integer.valueOf(mDishCountTextView.getText().toString())));
-                        Basket.get(getApplicationContext()).addDish(mDish, 1);
-                        totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                        Basket.get().addDish(mDish, 1);
+                        totalPrice.setText(String.valueOf(Basket.get().getTotal()));
                     }
                 }
             });
@@ -198,8 +198,8 @@ public class ShoppingCartActivity extends BaseActivity {
                     if(Integer.valueOf(mDishCountTextView.getText().toString()) > 1) {
                         mDishCountTextView.setText(String.valueOf(Integer.valueOf(mDishCountTextView.getText().toString()) - 1));
                         mTotalPriceTextView.setText(String.valueOf(mDish.getPrice()*Integer.valueOf(mDishCountTextView.getText().toString())));
-                        Basket.get(getApplicationContext()).minusDish(mDish);
-                        totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                        Basket.get().minusDish(mDish);
+                        totalPrice.setText(String.valueOf(Basket.get().getTotal()));
                     }
                 }
             });
@@ -229,10 +229,10 @@ public class ShoppingCartActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     mDishesMap.remove(dish);
-                    Basket.get(getApplicationContext()).deleteDish(dish);
+                    Basket.get().deleteDish(dish);
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(), mDishesMap.size());
-                    totalPrice.setText(String.valueOf(Basket.get(getApplicationContext()).getTotal()));
+                    totalPrice.setText(String.valueOf(Basket.get().getTotal()));
                     getItemCount();
                 }
             });

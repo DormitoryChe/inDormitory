@@ -8,10 +8,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TimePicker;
 
+import com.example.indormitory.services.TimerService;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import ua.privatbank.paylibliqpay.ErrorCode;
 import ua.privatbank.paylibliqpay.LiqPay;
@@ -58,8 +64,9 @@ public class ReserveTableActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(isUserLoggedIn()) {
-                    //startService(new Intent(getApplicationContext(), ReservedTableTimerService.class));
-                    //startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm:ss");
+                    Log.e("Basket", dateFormatter.format(new Date()));
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                 } else {
                     redirectUserToLogin();
                 }

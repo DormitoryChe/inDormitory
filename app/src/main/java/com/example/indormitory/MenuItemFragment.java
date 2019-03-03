@@ -98,7 +98,7 @@ public class MenuItemFragment extends Fragment {
             itemView.findViewById(R.id.dish_add_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Basket.get(getContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
+                    Basket.get().addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
                     Toast.makeText(getContext(), R.string.add_button_toast, Toast.LENGTH_SHORT).show();
                     mDishCountTextView.setText(String.valueOf(1));
                 }

@@ -80,7 +80,7 @@ public class ItemMenuActivity extends BaseActivity {
         findViewById(R.id.dish_add_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Basket.get(getApplicationContext()).addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
+                Basket.get().addDish(mDish, Integer.valueOf(mDishCountTextView.getText().toString()));
                 mDishCountTextView.setText(String.valueOf(1));
             }
         });
