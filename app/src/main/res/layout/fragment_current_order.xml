@@ -18,7 +18,8 @@
         android:paddingBottom="12dp"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        android:paddingTop="12dp">
+        android:paddingTop="12dp"
+        >
 
         <Button
             android:id="@+id/current_order_close"
@@ -34,7 +35,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/current_order_check_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false">
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

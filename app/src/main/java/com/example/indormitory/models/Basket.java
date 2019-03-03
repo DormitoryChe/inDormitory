@@ -15,13 +15,13 @@ public class Basket {
 
     private Map<Dish, Integer> mDishes;
     private double mTotal;
-    public static Basket get(Context context) {
+    public static Basket get() {
         if(basket == null)
-            basket = new Basket(context);
+            basket = new Basket();
         return basket;
     }
 
-    private Basket(Context context) {
+    private Basket() {
         mDishes = new LinkedHashMap<>();
         mTotal = 0;
     }
@@ -51,7 +51,7 @@ public class Basket {
         return mDishes;
     }
 
-    public void updateTotal() {
+    private void updateTotal() {
         double newTotal = 0;
         for(Map.Entry<Dish, Integer> entry : mDishes.entrySet()) {
             double temp = entry.getValue()*entry.getKey().getPrice();

@@ -76,5 +76,8 @@
             android:launchMode="singleTop"/>
         <activity android:name="ua.privatbank.paylibliqpay.CheckoutActivity"/>
 
+        <service
+            android:name=".services.TimerService"
+            android:isolatedProcess="true"/>
     </application>
 </manifest>

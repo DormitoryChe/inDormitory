@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class ReservationActivity extends BaseActivity {
+    private static final String TABLE_POSITION = "table_position";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Button mTable1Button;
     private Button mTable2Button;
@@ -179,7 +180,7 @@ public class ReservationActivity extends BaseActivity {
         }
     }
 
-    private void showAlertDialogByButtonState(Button button) {
+    private void showAlertDialogByButtonState(final Button button) {
         Drawable drawable = button.getBackground();
         drawable = drawable.getConstantState().newDrawable().mutate();
         Bitmap currentBitmap = drawableToBitmap(drawable);
@@ -188,7 +189,10 @@ public class ReservationActivity extends BaseActivity {
         Bitmap reservedBitmap = drawableToBitmap(ContextCompat.getDrawable(getApplicationContext(), R.drawable.seat_reserved));
         View dialogView;
 
+        final int tablePosition = Integer.valueOf(getResources().getResourceEntryName(button.getId()).split("_")[1]);
         if(compare(currentBitmap, freeBitmap)) {
+            Intent intent = new Intent(getApplicationContext(), ReserveTableActivity.class);
+            intent.putExtra(TABLE_POSITION, tablePosition);
             startActivity(new Intent(ReservationActivity.this, ReserveTableActivity.class));
         } else if (compare(currentBitmap, reservedBitmap)) {
             dialogView = inflater.inflate(R.layout.reservation_reserved_table_alert, null);
@@ -211,7 +215,9 @@ public class ReservationActivity extends BaseActivity {
             reserveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(ReservationActivity.this, ReserveTableActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), ReserveTableActivity.class);
+                    intent.putExtra(TABLE_POSITION, tablePosition);
+                    startActivity(intent);
                 }
             });
         } else {
@@ -232,6 +238,7 @@ public class ReservationActivity extends BaseActivity {
             });
         }
     }
+
     private static boolean compare(Bitmap b1, Bitmap b2) {
         if (b1.getWidth() == b2.getWidth() && b1.getHeight() == b2.getHeight()) {
             int[] pixels1 = new int[b1.getWidth() * b1.getHeight()];
@@ -244,16 +251,13 @@ public class ReservationActivity extends BaseActivity {
     }
 
     public static Bitmap drawableToBitmap (Drawable drawable) {
-
-        if (drawable instanceof BitmapDrawable) {
+        if (drawable instanceof BitmapDrawable)
             return ((BitmapDrawable)drawable).getBitmap();
-        }
 
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
-
         return bitmap;
     }
 

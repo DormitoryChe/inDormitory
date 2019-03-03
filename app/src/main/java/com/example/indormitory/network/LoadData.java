@@ -1,6 +1,5 @@
 package com.example.indormitory.network;
 
-import android.service.autofill.RegexValidator;
 import android.support.annotation.NonNull;
 
 import com.example.indormitory.models.AllDishes;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadData {
-    RegexValidator ds;
+
     public static void loadNews() {
         final AllNews allNews = AllNews.get();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -36,6 +35,7 @@ public class LoadData {
             }
         });
     }
+
     public static void loadDishes() {
         final AllDishes allDishes = AllDishes.get();
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -76,6 +76,21 @@ public class LoadData {
                 }
             }
         });
-
     }
+
+    public static void blockedTables(int tablePosition) {
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("tables").whereEqualTo("position", tablePosition).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (DocumentSnapshot snapshot : task.getResult()) {
+                        //TODO update state
+
+                    }
+                }
+            }
+        });
+    }
+
 }
